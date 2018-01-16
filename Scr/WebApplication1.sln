@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine", "ClassLibrary1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestGameEngine", "UnitTestProject1\UnitTestGameEngine.csproj", "{5AB744CD-0E4F-4274-B223-DA3C6260B46A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{75DC1DC9-136F-4BE1-B4CD-A2927571E8AB}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\Downloads\board-game-team-see-master\board-game-team-see-master\DocsSrc\userstories\index.md = ..\..\..\..\Downloads\board-game-team-see-master\board-game-team-see-master\DocsSrc\userstories\index.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
