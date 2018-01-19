@@ -6,79 +6,28 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
+    class Spot
+    {
+        public Player player;
+        public int place; 
+    }
+   
     class Game
     {
-        private int[,] boardArea = new char[3, 3];
+        // Här skapar vi  av platser som ma kan placera en markör på. Listan innehåller 
+        // vilken plats det är och vilken spelare som står på den. 
 
-        //Property that defines the boardarea: a 3x3 dimensional board.
-        public int[,] BoardArea
+        /// <summary>
+        /// Detta är en kontrukor som skapar brädet som vi ska spela på. Bärdet är tomt alla platser är lediga. under spelets gång kommer objekten i listan 
+        /// att uppdaters. T.ex. när en spelare placerar en markör på t.ex spot[4] så blir den rutan upptagen och rutan tillhör nu spelaren som klickade på den. 
+        /// </summary>
+        public static List<Spot> spot = new List<Spot>();
+        public Game(int xRow)
         {
-            get
+            for (int i = 0; i < xRow * xRow; i++)
             {
-                return boardArea;
+                spot.Add(new Spot { player = null, place = i });
             }
-            set
-            {
-                boardArea = value;
-            }
-        }
-
-        /*public enum Player
-        {
-            X,
-            O
-        }*/
-
-
-        //Metod som sköter själva handlingen att placera ut en pjäs på brädet, i en speciell ruta.
-        public void PlaceGamePiece(int toX, int toY)
-        {
-            if (CheckIfFieldOnBoardIsFree)
-            {
-
-            }
-
-        }
-
-        //Metod som kontrollerar om det är möjligt att lägga sin spelmarkör på ett specifikt fält på spelbrädet.
-        //Argumenten som metoden tar in är en x och en y - koordinat i rutnätet som utgör spelplanen.
-        public bool CheckIfFieldOnBoardIsFree(int x, int y)
-        {
-            return true;
-        }
-
-        //Method that controls if there are three similar game pieces/player marks in a row on the board. If So, return true.
-        public bool CheckForWinOnRows()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-               
-            }
-        }
-
-        //Method that controls if there are three similar game pieces/player marks on the diagonal on the board. If So, return true.
-        public bool CheckForWinsOnDiagonal()
-        {
-
-        }
-
-        //Method that controls if there are three similar game pieces/player marks in a column on the board. If So, return true.
-        public bool CheckForWinsOnColumns()
-        {
-
-        }
-
-        //Method that controls if any of the "CheckForWinsOn..."-methods are evaluated to true. If so, the game has a winner and it is over.
-        public bool CheckIfGamehasAWinner()
-        {
-
-        }
-
-        //Method that controls who the current player is, if current player is X then the value of currentPlayer is changed to O, and
-        //the other way around in the opposite case. Method is used to make it possible to switch turns in the game.
-        public void ChangePlayerTurn()
-        {
-        
 
         }
 
