@@ -101,6 +101,7 @@ namespace ClassLibrary1
         {
 
 
+
         }
 
         public bool CheckValueSimilarityInRow(char piece1, char piece2, char piece3)
