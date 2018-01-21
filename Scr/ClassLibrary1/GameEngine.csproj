@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameRules.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
