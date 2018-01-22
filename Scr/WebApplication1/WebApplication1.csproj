@@ -89,9 +89,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\Content\LudoBoard.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="board-game-team-see-master\board-game-team-see-master\Content\LudoStyle.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
