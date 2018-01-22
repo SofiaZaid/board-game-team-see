@@ -34,19 +34,16 @@ namespace WebApplication1.Controllers
         {
             string[] values = mark.Split(',');
 
-            if (game.gameBoard == null)
-            {
-                game = new Game();
-            }
 
-            var isOk =  game.PlaceMark(Convert.ToInt32(values[0]), Convert.ToInt32(values[1]),Mark.PlayerO);
-
-            if(!isOk)
+            var isOk =  game.PlaceMark(Convert.ToInt32(values[1]), Convert.ToInt32(values[0]));
+            System.Diagnostics.Debug.WriteLine(game.PrintGameBoard());
+            if (!isOk)
             {
                 //Write error message in viewbag? or nothing happends??
             }
             return Redirect("Index");
         }
+
         //public ActionResult Sida2()
         //{
         //    ////Class1 myClass = new Class1();

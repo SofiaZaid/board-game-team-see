@@ -59,11 +59,12 @@ namespace GameEngine
         //the specific field is located on, and the player argument specifices which player it is that
         //wants to place her mark on the board. Calls method "IsFree" to firstly check if the field is 
         //free, if so- places the player's mark there. Else- throws an exception.
-        public bool PlaceMark(int x, int y, Mark player)
+        public bool PlaceMark(int x, int y)
         {
             if (IsFree(x, y))
             {
                 gameBoard[y, x] = currentPlayer;
+                ChangePlayerTurn();
                 return true;
             }
             //Maybe not an exception here?
@@ -181,8 +182,9 @@ namespace GameEngine
         }
 
         //Test method- not to be kept in this code later on. Just to be able to test and see that we can get a correct gameboard printed out.
-        public void PrintGameBoard()
+        public string PrintGameBoard()
         {
+            string boardString = "";
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -190,18 +192,19 @@ namespace GameEngine
                     switch (gameBoard[i, j])
                     {
                         case Mark.PlayerX:
-                            Console.Write("X");
+                            boardString += "X";
                             break;
                         case Mark.PlayerO:
-                            Console.Write("O");
+                            boardString += "O";
                             break;
                         default:
-                            Console.Write(" ");
+                            boardString += " ";
                             break;
                     }
                 }
-                Console.WriteLine("");
+               boardString += "\n";
             }
+            return boardString;
         }
     }
 }
