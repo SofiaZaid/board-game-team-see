@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
 
             if (game.gameBoard == null)
             {
-                game = new Game(new Mark[3,3]);
+                game = new Game();
             }
 
             var isOk =  game.PlaceMark(Convert.ToInt32(values[0]), Convert.ToInt32(values[1]),Mark.PlayerO);
