@@ -10,5 +10,6 @@ namespace WebApplication1.Models
         public string MyFirstValue { get; set; }
         public string MySecondValue { get; set; }
         public List<string> MyList { get; set; }
+        public Player player { get; set; }
     }
 }

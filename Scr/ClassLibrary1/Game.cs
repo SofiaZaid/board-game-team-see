@@ -1,34 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ClassLibrary1
+namespace GameEngine
 {
 
-    class Game
+    public enum Mark
+    {
+        Nobody,
+        PlayerX,
+        PlayerO
+    }
+
+    public class Game
     {
         //Here we create a new type called Mark that we can use to distinguish between the player
         //with player mark X, the player with player mark O and "Nobody"-when there is no player mark
         //on a certain field of the board. The property GameBoard is a two-dimensional array of the 
         //created enum type "Mark".
         public Mark[,] gameBoard;
-        public enum Mark
+        
+        public Game()
         {
-            Nobody,
-            PlayerX,
-            PlayerO,
+                
         }
-
-        public Mark currentPlayer = Mark.PlayerX;
 
         //Constructor that instansiate a new gameboard.
         //In the beginning of the game the board has no player marks on it,
         //this methods therefore construct the empty board for the start of the game.
-        public Game()
+        public Game(Mark[,] game)
         {
-            gameBoard = new Mark[3, 3];
+            gameBoard = game;
+
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -37,22 +38,10 @@ namespace ClassLibrary1
                 }
             }
         }
-        
-        public void ChangePlayerTurn()
-        {
-            if(currentPlayer == Mark.PlayerX)
-            {
-                currentPlayer = Mark.PlayerO;
-            }
-            else if(currentPlayer == Mark.PlayerO)
-            {
-                currentPlayer = Mark.PlayerX;
-            }
-        }
 
         //Method that checks if a certain field (box) on the game board is free (meaning: "Nobody" is the Mark
         //on the field. We are checking a special position on the board: y marks the row and x marks the column
-        private bool IsFree(int x, int y)
+        public bool IsFree(int x, int y)
         {
             return gameBoard[y, x] == Mark.Nobody;
         }
@@ -62,34 +51,25 @@ namespace ClassLibrary1
         //the specific field is located on, and the player argument specifices which player it is that
         //wants to place her mark on the board. Calls method "IsFree" to firstly check if the field is 
         //free, if so- places the player's mark there. Else- throws an exception.
-        public void PlaceMark(int x, int y)
+        public bool PlaceMark(int x, int y, Mark player)
         {
             if (IsFree(x, y))
             {
-                gameBoard[y, x] = currentPlayer;
-                ChangePlayerTurn();
+                gameBoard[y, x] = player;
+                return true;
             }
-            else
-            {
-                throw new InvalidOperationException("This field on the board is already occupied, action invalid.");
-            }
+            //Maybe not an exception here?
+            return false;
+           
         }
 
-        //Method that controls if all the fields on the gameboard is full of Player Marks, or if any
-        //fields are empty. Returns true if no field is empty from any player Mark.
-        public bool IsBoardFull()
+
+        //Method to be implemented- we could let the Game keep check on who's turn it is. If implemented, Method
+        //PlaceMark will not need to get the "Mark player" as an argument. The Game then keeps check on whos turn
+        //it is
+        public void ChangePlayerTurn()
         {
-            for (int i = 0; i < 3; i++)
-            {
-                for(int j = 0; j < 3; j++)
-                {
-                    if(IsFree(i,j))
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
+
         }
 
         //Method that checks if there is a winner on any of the rows on the game board. Since there are three rows we need to
@@ -154,6 +134,8 @@ namespace ClassLibrary1
                 return gameBoard[0, x];
             }
             return Mark.Nobody;
+
+
         }
 
         //Method that calls the method WhoIsWinner. This method is used to check if the game has any winner yet.
