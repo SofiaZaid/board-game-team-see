@@ -27,7 +27,7 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Sida2()
         {
-            Class1 myClass = new Class1();
+            GameMethod myClass = new GameMethod(); // Path: Gameengine/Class1
             int result = myClass.AddNumbers(2,2);
             return View();
         }

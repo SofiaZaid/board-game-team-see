@@ -1,6 +1,7 @@
 ﻿
 @model  WebApplication1.Models.MyFirstModel 
 @{
+    Layout = "~/Views/Default/Index";
     ViewBag.Title = "Hej";
 }
 
@@ -9,7 +10,7 @@
 @ViewBag.Title<br />
 H1<br />
 
-@Model.MyFirstValue<br/ >
+@Model.MyFirstValue<br/>
 @Model.MySecondValue
 @foreach (var s in Model.MyList)
 {
