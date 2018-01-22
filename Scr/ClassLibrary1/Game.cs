@@ -2,14 +2,6 @@
 
 namespace GameEngine
 {
-
-    public enum Mark
-    {
-        Nobody,
-        PlayerX,
-        PlayerO
-    }
-
     public class Game
     {
         //Here we create a new type called Mark that we can use to distinguish between the player
@@ -17,7 +9,16 @@ namespace GameEngine
         //on a certain field of the board. The property GameBoard is a two-dimensional array of the 
         //created enum type "Mark".
         public Mark[,] gameBoard;
-        
+
+        public enum Mark
+        {
+            Nobody,
+            PlayerX,
+            PlayerO
+        }
+
+        public Mark currentPlayer = Mark.PlayerX;
+
         public Game()
         {
                 
@@ -39,6 +40,18 @@ namespace GameEngine
             }
         }
 
+        public void ChangePlayerTurn()
+        {
+            if (currentPlayer == Mark.PlayerX)
+            {
+                currentPlayer = Mark.PlayerO;
+            }
+            else if (currentPlayer == Mark.PlayerO)
+            {
+                currentPlayer = Mark.PlayerX;
+            }
+        }
+
         //Method that checks if a certain field (box) on the game board is free (meaning: "Nobody" is the Mark
         //on the field. We are checking a special position on the board: y marks the row and x marks the column
         public bool IsFree(int x, int y)
@@ -55,21 +68,29 @@ namespace GameEngine
         {
             if (IsFree(x, y))
             {
-                gameBoard[y, x] = player;
+                gameBoard[y, x] = currentPlayer;
                 return true;
             }
             //Maybe not an exception here?
             return false;
-           
         }
 
 
-        //Method to be implemented- we could let the Game keep check on who's turn it is. If implemented, Method
-        //PlaceMark will not need to get the "Mark player" as an argument. The Game then keeps check on whos turn
-        //it is
-        public void ChangePlayerTurn()
+        //Method that controls if all the fields on the gameboard is full of Player Marks, or if any
+        //fields are empty. Returns true if no field is empty from any player Mark.
+        public bool IsBoardFull()
         {
-
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (IsFree(i, j))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         //Method that checks if there is a winner on any of the rows on the game board. Since there are three rows we need to
@@ -134,7 +155,6 @@ namespace GameEngine
                 return gameBoard[0, x];
             }
             return Mark.Nobody;
-
 
         }
 
