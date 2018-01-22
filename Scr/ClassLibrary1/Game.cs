@@ -8,7 +8,7 @@ namespace GameEngine
         //with player mark X, the player with player mark O and "Nobody"-when there is no player mark
         //on a certain field of the board. The property GameBoard is a two-dimensional array of the 
         //created enum type "Mark".
-        public Mark[,] gameBoard;
+        private Mark[,] gameBoard;
 
         public enum Mark
         {
