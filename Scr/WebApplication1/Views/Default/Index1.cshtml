@@ -1,0 +1,19 @@
+﻿
+@model  WebApplication1.Models.MyFirstModel 
+@{
+    ViewBag.Title = "Hej";
+}
+
+<h2>Index</h2>
+@ViewBag.Something<br />
+@ViewBag.Title<br />
+H1<br />
+
+@Model.MyFirstValue<br/ >
+@Model.MySecondValue
+@foreach (var s in Model.MyList)
+{
+    var something = s + "jjjj";
+    var date = DateTime.Now.ToString();
+    <p>@something  @date</p>
+}

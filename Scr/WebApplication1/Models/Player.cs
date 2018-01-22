@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1
+namespace WebApplication1.Models
 {
-    class Player
+    public class Player
     {
         public string NickName { get; set; }
-        public int PlayerID { get; set; }  
-        
+        public int PlayerID { get; set; }
+        public int MarkId { get; set; } 
         public int GamePieces { get; set; }
     }
 }
