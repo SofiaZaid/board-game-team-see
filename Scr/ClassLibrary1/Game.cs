@@ -22,7 +22,7 @@ namespace GameEngine
         {
                 
         }
-
+    
         //Constructor that instansiate a new gameboard.
         //In the beginning of the game the board has no player marks on it,
         //this methods therefore construct the empty board for the start of the game.
