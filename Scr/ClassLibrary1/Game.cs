@@ -18,7 +18,8 @@ namespace GameEngine
             PlayerO
         }
 
-        public Mark currentPlayer = Mark.PlayerX;
+        public Mark CurrentPlayer { get; }
+        private Mark currentPlayer = Mark.PlayerX;
 
         //Constructor that instansiate a new gameboard.
         //In the beginning of the game the board has no player marks on it,
@@ -52,7 +53,7 @@ namespace GameEngine
         //on the field. We are checking a special position on the board: y marks the row and x marks the column
         public bool IsFree(int x, int y)
         {
-            return gameBoard[y, x] == Mark.Nobody;
+            return GetMarkAt(x, y) == Mark.Nobody;
         }
 
         //Modifiera så att denna ej tar in spelarargumentet, har metoden changeplayerturn för det.
@@ -72,6 +73,10 @@ namespace GameEngine
             return false;
         }
 
+        public Mark GetMarkAt (int x, int y)
+        {
+            return gameBoard[y, x];
+        }
 
         //Method that controls if all the fields on the gameboard is full of Player Marks, or if any
         //fields are empty. Returns true if no field is empty from any player Mark.

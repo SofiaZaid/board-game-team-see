@@ -12,35 +12,37 @@ namespace WebApplication1.Controllers
     public class GameSessionController : Controller
     {
         private static Game game = new Game();
-
         // GET: Default
 
 
-        public ActionResult PlaceMark(string mark)
+        public ActionResult ShowGameBoard(int id)
         {
-            if (!string.IsNullOrEmpty(mark))
+            /*if (!string.IsNullOrEmpty(mark))
             {
                 ViewBag.Result = "X";
                 ViewBag.Button = mark;
-            }
-            return View();
+            }*/
+            System.Diagnostics.Debug.WriteLine("Showing the game board for game " + id.ToString());
+            System.Diagnostics.Debug.WriteLine(game.PrintGameBoard());
+            return View("ShowGameBoard", game);
         }
-        public ActionResult Button(string mark)
+        public ActionResult PlaceMark(int id, string coordinates)
         {
 
-            ViewBag.Result = "X";
+            /*ViewBag.Result = "X";
             ViewBag.Button = mark;
-            return View();
-            //string[] values = mark.Split(',');
+            return View();*/
+            System.Diagnostics.Debug.WriteLine("Placing mark at coordinates " + coordinates);
+            string[] values = coordinates.Split(',');
             
-            //var isOk =  game.PlaceMark(Convert.ToInt32(values[1]), Convert.ToInt32(values[0]));
+            var isOk = game.PlaceMark(Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
             
-            //System.Diagnostics.Debug.WriteLine(game.PrintGameBoard());
-            //if (!isOk)
-            //{
-            //    //Write error message in viewbag? or nothing happends??
-            //}
+            if (!isOk)
+            {
+                // show some sort of error message view?
+            }
             //return Redirect("Index");
+            return ShowGameBoard(id);
         }
 
         //public ActionResult Sida2()

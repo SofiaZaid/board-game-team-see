@@ -9,8 +9,9 @@ namespace WebApplication1.Controllers
     public class StartPageController : Controller
     {
         // GET: StartPage
-        public ActionResult Index()
+        public ActionResult StartPage()
         {
+
             return View();
         }
     }

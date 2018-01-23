@@ -1,0 +1,46 @@
+﻿@model  GameEngine.Game
+@{
+    ViewBag.Title = "Tic Tac Toe";
+}
+@helper showMarkAt(int x, int y)
+    {
+        switch (Model.GetMarkAt(x, y))
+        {
+            case GameEngine.Game.Mark.PlayerX:
+                <div>X</div>
+                break;
+            case GameEngine.Game.Mark.PlayerO:
+                <div>O</div>
+                break;
+            default:
+                <div>&nbsp;</div>
+                break;
+        }
+
+}
+
+<h2>Tic Tac Toe</h2>
+
+
+@using (Html.BeginForm("PlaceMark", "GameSession", new { id = 0 /* get id from game session object in model */}))
+{
+
+    <p>
+        <button class="Button" id="Button1" name="coordinates" value="0,0"> @showMarkAt(0, 0) </button>
+        <button class="Button" id="Button2" name="coordinates" value="1,0"> @showMarkAt(1, 0) </button>
+        <button class="Button" id="Button3" name="coordinates" value="2,0"> @showMarkAt(2, 0) </button>
+    </p>
+    <p>
+
+        <button class="Button" id="Button4" name="coordinates" value="0,1"> @showMarkAt(0, 1) </button>
+        <button class="Button" id="Button5" name="coordinates" value="1,1"> @showMarkAt(1, 1) </button>
+        <button class="Button" id="Button6" name="coordinates" value="2,1"> @showMarkAt(2, 1) </button>
+    </p>
+    <p>
+
+        <button class="Button" id="Button7" name="coordinates" value="0,2"> @showMarkAt(0, 2) </button>
+        <button class="Button" id="Button8" name="coordinates" value="1,2"> @showMarkAt(1, 2) </button>
+        <button class="Button" id="Button9" name="coordinates" value="2,2"> @showMarkAt(2, 2) </button>
+    </p>
+}
+

@@ -24,6 +24,17 @@ namespace WebApplication1
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+               name: "GameSession.PlaceMark",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "GameSession", action = "PlaceMark", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
+               name: "GameSession.ShowGameBoard",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "GameSession", action = "ShowGameBoard", id = UrlParameter.Optional }
+           );
         }
     }
 }
