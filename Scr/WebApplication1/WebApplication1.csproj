@@ -89,9 +89,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\Content\LudoBoard.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="board-game-team-see-master\board-game-team-see-master\Content\LudoStyle.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -159,6 +156,11 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Default\Sida2.cshtml" />
@@ -170,6 +172,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\MyFirstModel.cs" />
+    <Compile Include="Models\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -180,8 +183,9 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\Default\Index1.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Default\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -196,10 +200,6 @@
     <ProjectReference Include="..\ClassLibrary1\GameEngine.csproj">
       <Project>{c0d6b8f7-1f7c-45ef-bc15-2301a0b7a436}</Project>
       <Name>GameEngine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UnitTestProject1\UnitTestGameEngine.csproj">
-      <Project>{5ab744cd-0e4f-4274-b223-da3c6260b46a}</Project>
-      <Name>UnitTestGameEngine</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

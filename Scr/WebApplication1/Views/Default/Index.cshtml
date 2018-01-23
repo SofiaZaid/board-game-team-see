@@ -1,20 +1,28 @@
-﻿
-@model  WebApplication1.Models.MyFirstModel 
+﻿@model  WebApplication1.Models.MyFirstModel
 @{
-    Layout = "~/Views/Default/Index";
-    ViewBag.Title = "Hej";
+    ViewBag.Title = "Tic Tac Toe";
 }
 
-<h2>Index</h2>
-@ViewBag.Something<br />
-@ViewBag.Title<br />
-H1<br />
 
-@Model.MyFirstValue<br/>
-@Model.MySecondValue
-@foreach (var s in Model.MyList)
+<h2>Tic tac toe game</h2>
+
+
+@using (Html.BeginForm("Button", "Default"))
 {
-    var something = s + "jjjj";
-    var date = DateTime.Now.ToString();
-    <p>@something  @date</p>
+<p>
+    <button input class="Button" id="submit" name="mark" type="submit" value="0,0"> </button>
+    <button input class="Button" id="submit" name="mark" type="submit" value="0,1">  </button>
+    <button input class="Button" id="submit" name="mark" type="submit" value="0,2">  </button>
+</p>                                                                       
+<p>                                                                        
+    <button input class="Button" id="submit" name="mark" type="submit" value="1,0">  </button>
+    <button input class="Button" id="submit" name="mark" type="submit" value="1,1">  </button>
+    <button input class="Button" id="submit" name="mark" type="submit" value="1,2">  </button>
+</p>                                                                          
+<p>                                                                          
+    <button input class="Button" id="submit" name="mark" type="submit" value="2,0">  </button>
+    <button input class="Button" id="submit" name="mark" type="submit" value="2,1">  </button>
+    <button input class="Button" id="submit" name="mark" type="submit" value="2,2">  </button>
+</p>
 }
+

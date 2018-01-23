@@ -15,4 +15,9 @@ select,
 textarea {
     max-width: 280px;
 }
+/*Set width and height on Button*/
+.Button {
+    width: 100px;
+    height: 100px;
+}
 
