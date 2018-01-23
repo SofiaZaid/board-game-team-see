@@ -12,6 +12,24 @@ namespace WebApplication1.Controllers
     public class DefaultController : Controller
     {
         private static Game game = new Game();
+
+        // GET: Default
+
+
+        public ActionResult Index()
+        {
+            ViewBag.Something = "Whatever";
+            MyFirstModel model = new MyFirstModel()
+            {
+                MyFirstValue = "Model value 1",
+                MySecondValue = "Model value 2",
+                MyList = new List<string>
+                {
+                   "hej","hello"
+                }
+            };
+            return View(model);
+        }
         public ActionResult Button(string mark)
         {
             string[] values = mark.Split(',');
