@@ -2,27 +2,36 @@
 @{
     ViewBag.Title = "Tic Tac Toe";
 }
-
+@helper showResult(string result, string button, string currentButton)
+    {
+        if (button == currentButton)
+        {
+            <div>@result</div>
+        }
+}
 
 <h2>Tic Tac Toe</h2>
 
 
-@using (Html.BeginForm("Button", "Default"))
+@using (Html.BeginForm("Index", "Default"))
 {
-<p>
-    <button input class="Button" id="submit" name="mark" type="submit" value="0,0"> </button>
-    <button input class="Button" id="submit" name="mark" type="submit" value="0,1">  </button>
-    <button input class="Button" id="submit" name="mark" type="submit" value="0,2">  </button>
-</p>                                                                       
-<p>                                                                        
-    <button input class="Button" id="submit" name="mark" type="submit" value="1,0">  </button>
-    <button input class="Button" id="submit" name="mark" type="submit" value="1,1">  </button>
-    <button input class="Button" id="submit" name="mark" type="submit" value="1,2">  </button>
-</p>                                                                          
-<p>                                                                          
-    <button input class="Button" id="submit" name="mark" type="submit" value="2,0">  </button>
-    <button input class="Button" id="submit" name="mark" type="submit" value="2,1">  </button>
-    <button input class="Button" id="submit" name="mark" type="submit" value="2,2">  </button>
-</p>
+
+    <p>
+        <Button class="Button" id="Button1" name="mark" value="00">@showResult(ViewBag.Result, ViewBag.Button, "00") </Button>
+        <button class="Button" id="Button2" name="mark" value="01"> @showResult(ViewBag.Result, ViewBag.Button, "01") </button>
+        <button class="Button" id="Button3" name="mark" value="02"> @showResult(ViewBag.Result, ViewBag.Button, "02") </button>
+    </p> 
+    <p>
+        
+        <button class="Button" id="Button4" name="mark" value="10"> @showResult(ViewBag.Result, ViewBag.Button, "10") </button>
+        <button class="Button" id="Button5" name="mark" value="11"> @showResult(ViewBag.Result, ViewBag.Button, "11") </button>
+        <button class="Button" id="Button6" name="mark" value="12"> @showResult(ViewBag.Result, ViewBag.Button, "12") </button>
+    </p> 
+    <p>
+        
+        <button class="Button" id="Button7" name="mark" value="20"> @showResult(ViewBag.Result, ViewBag.Button, "20") </button>
+        <button class="Button" id="Button8" name="mark" value="21"> @showResult(ViewBag.Result, ViewBag.Button, "21") </button>
+        <button class="Button" id="Button9" name="mark" value="22"> @showResult(ViewBag.Result, ViewBag.Button, "22") </button>
+    </p>
 }
 

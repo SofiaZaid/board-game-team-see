@@ -16,32 +16,31 @@ namespace WebApplication1.Controllers
         // GET: Default
 
 
-        public ActionResult Index()
+        public ActionResult Index(string mark)
         {
-            ViewBag.Something = "Whatever";
-            MyFirstModel model = new MyFirstModel()
+            if (!string.IsNullOrEmpty(mark))
             {
-                MyFirstValue = "Model value 1",
-                MySecondValue = "Model value 2",
-                MyList = new List<string>
-                {
-                   "hej","hello"
-                }
-            };
-            return View(model);
+                ViewBag.Result = "X";
+                ViewBag.Button = mark;
+            }
+            return View();
         }
         public ActionResult Button(string mark)
         {
-            string[] values = mark.Split(',');
 
-
-            var isOk =  game.PlaceMark(Convert.ToInt32(values[1]), Convert.ToInt32(values[0]));
-            System.Diagnostics.Debug.WriteLine(game.PrintGameBoard());
-            if (!isOk)
-            {
-                //Write error message in viewbag? or nothing happends??
-            }
-            return Redirect("Index");
+            ViewBag.Result = "X";
+            ViewBag.Button = mark;
+            return View();
+            //string[] values = mark.Split(',');
+            
+            //var isOk =  game.PlaceMark(Convert.ToInt32(values[1]), Convert.ToInt32(values[0]));
+            
+            //System.Diagnostics.Debug.WriteLine(game.PrintGameBoard());
+            //if (!isOk)
+            //{
+            //    //Write error message in viewbag? or nothing happends??
+            //}
+            //return Redirect("Index");
         }
 
         //public ActionResult Sida2()

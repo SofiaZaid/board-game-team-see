@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.UI.WebControls;
 
 namespace GameEngine
 {
@@ -205,6 +206,11 @@ namespace GameEngine
                boardString += "\n";
             }
             return boardString;
+        }
+        public void OnClick(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            clickedButton.Text = "...button clicked...";
         }
     }
 }
