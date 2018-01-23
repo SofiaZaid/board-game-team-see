@@ -9,14 +9,14 @@ using GameEngine;
 namespace WebApplication1.Controllers
 {
     
-    public class DefaultController : Controller
+    public class GameSessionController : Controller
     {
         private static Game game = new Game();
 
         // GET: Default
 
 
-        public ActionResult Index(string mark)
+        public ActionResult PlaceMark(string mark)
         {
             if (!string.IsNullOrEmpty(mark))
             {
