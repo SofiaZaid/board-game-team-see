@@ -14,6 +14,8 @@ namespace WebApplication1.Controllers
         private static Game game = new Game();
 
         // GET: Default
+
+
         public ActionResult Index()
         {
             ViewBag.Something = "Whatever";
@@ -28,8 +30,6 @@ namespace WebApplication1.Controllers
             };
             return View(model);
         }
-     
-   
         public ActionResult Button(string mark)
         {
             string[] values = mark.Split(',');
