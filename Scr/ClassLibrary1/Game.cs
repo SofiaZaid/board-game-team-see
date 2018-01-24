@@ -18,7 +18,14 @@ namespace GameEngine
             PlayerO
         }
 
-        public Mark CurrentPlayer { get; }
+        public Mark CurrentPlayer
+        {
+            get
+            {
+                return currentPlayer;
+            }
+
+        }
         private Mark currentPlayer = Mark.PlayerX;
 
         //Constructor that instansiate a new gameboard.
@@ -26,7 +33,7 @@ namespace GameEngine
         //this methods therefore construct the empty board for the start of the game.
         public Game()
         {
-            gameBoard = new Mark[3,3];
+            gameBoard = new Mark[3, 3];
 
             for (int i = 0; i < 3; i++)
             {
@@ -71,14 +78,14 @@ namespace GameEngine
                 {
                     //player won
                 }
-               
+
                 return true;
             }
             //Maybe not an exception here?
             return false;
         }
 
-        public Mark GetMarkAt (int x, int y)
+        public Mark GetMarkAt(int x, int y)
         {
             return gameBoard[y, x];
         }
@@ -213,7 +220,7 @@ namespace GameEngine
                             break;
                     }
                 }
-               boardString += "\n";
+                boardString += "\n";
             }
             return boardString;
         }

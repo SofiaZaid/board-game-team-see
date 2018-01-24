@@ -20,10 +20,10 @@
 }
 
 <h2>Tic Tac Toe</h2>
-@{ 
-    if(Model.HasWinner())
+@{
+    if (Model.HasWinner())
     {
-        if(Model.WhoIsWinner() == GameEngine.Game.Mark.PlayerO)
+        if (Model.WhoIsWinner() == GameEngine.Game.Mark.PlayerO)
         {
             <h2>Player O is the winner!</h2>
         }
@@ -33,6 +33,21 @@
         }
     }
 }
+
+@{
+    if (!Model.HasWinner())
+    {
+        if (Model.CurrentPlayer == GameEngine.Game.Mark.PlayerX)
+        {
+            <h2>It is Player X's turn</h2>
+        }
+        else
+        {
+            <h2>It is Player O's turn</h2>
+        }
+    }
+}
+
 
 @using (Html.BeginForm("PlaceMark", "GameSession", new { id = 0 /* get id from game session object in model */}))
 {
