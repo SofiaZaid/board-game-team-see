@@ -67,6 +67,11 @@ namespace GameEngine
             {
                 gameBoard[y, x] = currentPlayer;
                 ChangePlayerTurn();
+                if (WinnerOnRows() != Mark.Nobody || WinnerOnColumns() != Mark.Nobody || WinnerOnDiagonals() != Mark.Nobody)
+                {
+                    //player won
+                }
+               
                 return true;
             }
             //Maybe not an exception here?
