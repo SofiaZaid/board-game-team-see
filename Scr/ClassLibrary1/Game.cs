@@ -63,7 +63,7 @@ namespace GameEngine
         //free, if so- places the player's mark there. Else- throws an exception.
         public bool PlaceMark(int x, int y)
         {
-            if (IsFree(x, y))
+            if (!HasWinner() && IsFree(x, y))
             {
                 gameBoard[y, x] = currentPlayer;
                 ChangePlayerTurn();

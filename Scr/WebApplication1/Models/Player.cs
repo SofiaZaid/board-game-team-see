@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameEngine;
 
 namespace WebApplication1.Models
 {
@@ -10,7 +11,6 @@ namespace WebApplication1.Models
     {
         public string NickName { get; set; }
         public int PlayerID { get; set; }
-        public int MarkId { get; set; } 
-        public int GamePieces { get; set; }
+        public Game.Mark MarkId { get; set; } 
     }
 }
