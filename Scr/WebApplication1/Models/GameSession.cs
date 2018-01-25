@@ -9,14 +9,56 @@ namespace WebApplication1.Models
 {
     public class GameSession
     {
-        public Game SpecificGame { get; set; }
-        public int GameId { get; set; }
-        public Player[] PlayersInSpecificGame { get; set; }
-
-        public int CreateGameIDForSession()
+        public Game SpecificGame { get; }
+        public List<Player> PlayersInSpecificGame { get; }
+        public int GameID { get; }
+        public bool GameFull
         {
-            int sessionNumber = new Random().Next();
-            return sessionNumber;
+            get
+            {
+                return PlayersInSpecificGame.Count >= 2;
+            }
+        }
+
+        private State currentState = State.Waiting;
+        public enum State
+        {
+            Waiting,
+            Started
+        }
+        /*        public int CreateGameIDForSession()
+                {
+                    int sessionNumber = new Random().Next();
+                    return sessionNumber;
+                }*/
+
+        public GameSession(int gameID)
+        {
+            SpecificGame = new Game();
+            GameID = gameID;
+            PlayersInSpecificGame = new List<Player>();
+        }
+
+        public void JoinGame(Player p)
+        {
+            if (!GameFull && currentState == State.Waiting)
+            {
+                PlayersInSpecificGame.Add(p);
+            }
+        }
+        
+        public void StartGame()
+        {
+            if(GameFull && currentState == State.Waiting)
+            {
+                currentState = State.Started;
+            }
+        }
+
+
+        public bool GameOver()
+        {
+            return (!GameFull && currentState == State.Started) || SpecificGame.HasWinner();
         }
     }
 }

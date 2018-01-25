@@ -1,0 +1,41 @@
+﻿@model List<WebApplication1.Models.GameSession>
+@{
+    ViewBag.Title = "Startpage";
+}
+@helper listOpenGames()
+{
+foreach(WebApplication1.Models.GameSession g in Model)
+{
+        <option value="@g.GameID">@g.PlayersInSpecificGame[0].NickName's game</option>
+}
+
+}
+
+<h2>Welcome to Tic-tac-toe web!</h2>
+<div>
+    @using (Html.BeginForm("CreateGame", "GameSession"))
+    {
+        <p>
+            You can either start a new game or choose to enter a game that already<br />
+            has one player. If you choose to start a new game, press the button below<br />
+            If you want to take part of an existing game, click on the game in the list.
+        </p>
+
+        <p>
+            <label>&nbsp;</label>
+            <input type="text" name="playerXName" placeholder="Nickname..." />
+            <input type="submit" value="New Game" />
+        </p>
+    }
+</div>
+
+<div style="margin-top: 5em;">
+    @using (Html.BeginForm("JoinGame", "GameSession"))
+    {
+        <input type="text" name="playerOName" placeholder="Nickname..." />
+        <select name="id">
+            @listOpenGames()
+        </select>
+        <input type="submit" value="Join Game" />
+    }
+</div>

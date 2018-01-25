@@ -1,10 +1,10 @@
-﻿@model  GameEngine.Game
+﻿@model  WebApplication1.Models.GameSession
 @{
     ViewBag.Title = "Tic Tac Toe";
 }
 @helper showMarkAt(int x, int y)
     {
-        switch (Model.GetMarkAt(x, y))
+        switch (Model.SpecificGame.GetMarkAt(x, y))
         {
             case GameEngine.Game.Mark.PlayerX:
                 <div>X</div>
@@ -21,35 +21,43 @@
 
 <h2>Tic Tac Toe</h2>
 @{
-    if (Model.HasWinner())
+    if (Model.SpecificGame.HasWinner())
     {
-        if (Model.WhoIsWinner() == GameEngine.Game.Mark.PlayerO)
+        if (Model.SpecificGame.WhoIsWinner() == GameEngine.Game.Mark.PlayerO)
         {
-            <h2>Player O is the winner!</h2>
+            <h2>@Model.PlayersInSpecificGame[1].NickName is the winner!</h2>
         }
         else
         {
-            <h2>Player X is the winner!</h2>
+            <h2>@Model.PlayersInSpecificGame[0].NickName is the winner!</h2>
         }
     }
 }
 
 @{
-    if (!Model.HasWinner())
+    if (!Model.GameFull)
     {
-        if (Model.CurrentPlayer == GameEngine.Game.Mark.PlayerX)
+        <h1>Waiting for players...</h1>
+    }
+    else
+    {
+        if (!Model.SpecificGame.HasWinner())
         {
-            <h2>It is Player X's turn</h2>
-        }
-        else
-        {
-            <h2>It is Player O's turn</h2>
+            if (Model.SpecificGame.CurrentPlayer == GameEngine.Game.Mark.PlayerX)
+            {
+            <h2>It is @Model.PlayersInSpecificGame[0].NickName's turn (X)</h2>
+            }
+            else
+            {
+            <h2>It is @Model.PlayersInSpecificGame[1].NickName's turn (O)</h2>
+                }
+            }
         }
     }
+@{
 }
 
-
-@using (Html.BeginForm("PlaceMark", "GameSession", new { id = 0 /* get id from game session object in model */}))
+@using (Html.BeginForm("PlaceMark", "GameSession", new { id = Model.GameID /* get id from game session object in model */}))
 {
 
     <p>

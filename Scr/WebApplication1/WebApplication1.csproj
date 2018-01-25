@@ -185,6 +185,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\GameSession\ShowGameBoard.cshtml" />
     <Content Include="Views\GameSession\StartPage.cshtml" />
+    <Content Include="Views\GameSession\CreateGameForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
