@@ -12,5 +12,11 @@ namespace WebApplication1.Models
         public Game SpecificGame { get; set; }
         public int GameId { get; set; }
         public Player[] PlayersInSpecificGame { get; set; }
+
+        public int CreateGameIDForSession()
+        {
+            int sessionNumber = new Random().Next();
+            return sessionNumber;
+        }
     }
 }

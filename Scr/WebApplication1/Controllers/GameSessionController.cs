@@ -14,9 +14,14 @@ namespace WebApplication1.Controllers
         private static Game game = new Game();
         // GET: Default
 
+        public Dictionary<int, GameSession> GameSessions = new Dictionary<int, GameSession>();
+        
+        
+
         //To be able to look at a specific game we need to have an ID for the game as a parameter to the Actionresult.
         public ActionResult ShowGameBoard(int id)
         {
+            
             /*if (!string.IsNullOrEmpty(mark))
             {
                 ViewBag.Result = "X";
