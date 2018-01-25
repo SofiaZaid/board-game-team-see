@@ -45,6 +45,12 @@ namespace WebApplication1.Controllers
             return ShowGameBoard(id);
         }
 
+        public ActionResult StartPage()
+        {
+
+            return View();
+        }
+
         //public ActionResult Sida2()
         //{
         //    ////Class1 myClass = new Class1();
