@@ -21,7 +21,7 @@ namespace GameEngine
         public Mark CurrentPlayer
         {
             get
-            {
+            { 
                 return currentPlayer;
             }
 
