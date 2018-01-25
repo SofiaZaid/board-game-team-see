@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
         
 
         //To be able to look at a specific game we need to have an ID for the game as a parameter to the Actionresult.
-        public ActionResult ShowGameBoard(int id)
+        public ActionResult ShowGameBoard(int? id)
         {
             
             /*if (!string.IsNullOrEmpty(mark))
@@ -27,7 +27,7 @@ namespace WebApplication1.Controllers
                 ViewBag.Result = "X";
                 ViewBag.Button = mark;
             }*/
-            System.Diagnostics.Debug.WriteLine("Showing the game board for game " + id.ToString());
+            System.Diagnostics.Debug.WriteLine("Showing the game board for game " + id);           
             System.Diagnostics.Debug.WriteLine(game.PrintGameBoard());
             return View("ShowGameBoard", game);
         }
@@ -48,6 +48,12 @@ namespace WebApplication1.Controllers
             }
             //return Redirect("Index");
             return ShowGameBoard(id);
+        }
+
+        public ActionResult StartPage()
+        {
+
+            return View();
         }
 
         //public ActionResult Sida2()

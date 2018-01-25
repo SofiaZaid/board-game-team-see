@@ -1,0 +1,33 @@
+﻿@model  WebApplication1.Models.Player
+@{
+    ViewBag.Title = "StartPage";
+}
+
+<h2>Welcome</h2>
+
+
+@using (Html.BeginForm("StartPage", "GameSession"))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NickName, "Enter nickname your here!", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.NickName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-default" />
+            </div>
+        </div>
+        @Html.ActionLink("Start game", "ShowGameBoard")
+    </div>
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+
