@@ -15,14 +15,14 @@ namespace WebApplication1.Controllers
         // GET: Default
 
         //To be able to look at a specific game we need to have an ID for the game as a parameter to the Actionresult.
-        public ActionResult ShowGameBoard(int id)
+        public ActionResult ShowGameBoard(int? id)
         {
             /*if (!string.IsNullOrEmpty(mark))
             {
                 ViewBag.Result = "X";
                 ViewBag.Button = mark;
             }*/
-            System.Diagnostics.Debug.WriteLine("Showing the game board for game " + id.ToString());
+            System.Diagnostics.Debug.WriteLine("Showing the game board for game " + id);           
             System.Diagnostics.Debug.WriteLine(game.PrintGameBoard());
             return View("ShowGameBoard", game);
         }
