@@ -17,11 +17,15 @@ namespace WebApplication1.Controllers
         private static Dictionary<int, GameSession> GameSessions = new Dictionary<int, GameSession>();
 
         //Lista som byggs upp för att skicka vidare till viewen.
-        public ActionResult CreateGameForm()
+        public ActionResult FirstPage()
         {
-            if (Session["player"] != null)
+            Player currentPlayer = (Player)Session["player"];
+            if (currentPlayer != null)
             {
-                return RedirectToBoard(((Player)Session["player"]).GameID);
+                if(!GameSessions[currentPlayer.GameID].GameOver())
+                {
+                    return RedirectToBoard(currentPlayer.GameID);
+                }
             }
             List<GameSession> openGames = new List<GameSession>();
             foreach (GameSession game in GameSessions.Values)
@@ -31,23 +35,30 @@ namespace WebApplication1.Controllers
                     openGames.Add(game);
                 }
             }
-            return View("CreateGameForm", openGames);
+            return View("FirstPage", openGames);
         }
 
-        public ActionResult JoinGame(string playerOName, int id)
+        public ActionResult JoinGame(string playerOName, int ? id)
         {
-            GameSession game = GameSessions[id];
-            Player secondPlayer = new Player
+            if (id != null)
             {
-                NickName = playerOName,
-                PlayerID = idGenerator.Next(),
-                MarkId = Game.Mark.PlayerO,
-                GameID = id
-            };
-            game.JoinGame(secondPlayer);
-            game.StartGame();
-            Session["player"] = secondPlayer;
-            return RedirectToBoard(id);
+                GameSession game = GameSessions[(int)id];
+                Player secondPlayer = new Player
+                {
+                    NickName = playerOName,
+                    PlayerID = idGenerator.Next(),
+                    MarkId = Game.Mark.PlayerO,
+                    GameID = (int)id
+                };
+                game.JoinGame(secondPlayer);
+                game.StartGame();
+                Session["player"] = secondPlayer;
+                return RedirectToBoard((int)id);
+            }
+            else
+            {
+                return Redirect("/");
+            }
         }
 
         public ActionResult CreateGame(string playerXName)

@@ -21,40 +21,43 @@
 
 <h2>Tic Tac Toe</h2>
 @{
-    if (Model.SpecificGame.HasWinner())
+    if (Model.GameOver())
     {
-        if (Model.SpecificGame.WhoIsWinner() == GameEngine.Game.Mark.PlayerO)
+        <h3>The game is over you fools!</h3>
+        if (Model.SpecificGame.HasWinner())
         {
-            <h2>@Model.PlayersInSpecificGame[1].NickName is the winner!</h2>
-        }
-        else
-        {
-            <h2>@Model.PlayersInSpecificGame[0].NickName is the winner!</h2>
-        }
-    }
-}
-
-@{
-    if (!Model.GameFull)
-    {
-        <h1>Waiting for players...</h1>
-    }
-    else
-    {
-        if (!Model.SpecificGame.HasWinner())
-        {
-            if (Model.SpecificGame.CurrentPlayer == GameEngine.Game.Mark.PlayerX)
+            if (Model.SpecificGame.WhoIsWinner() == GameEngine.Game.Mark.PlayerO)
             {
-            <h2>It is @Model.PlayersInSpecificGame[0].NickName's turn (X)</h2>
+                <h2>@Model.PlayersInSpecificGame[1].NickName is the winner!</h2>
             }
             else
             {
-            <h2>It is @Model.PlayersInSpecificGame[1].NickName's turn (O)</h2>
+                <h2>@Model.PlayersInSpecificGame[0].NickName is the winner!</h2>
+            }
+        }
+        <a href="/">Go back to the lobby</a>
+    }
+    else
+    {
+        if (!Model.GameFull)
+        {
+            <h1>Waiting for players...</h1>
+        }
+        else
+        {
+            if (!Model.SpecificGame.HasWinner())
+            {
+                if (Model.SpecificGame.CurrentPlayer == GameEngine.Game.Mark.PlayerX)
+                {
+                    <h2>It is @Model.PlayersInSpecificGame[0].NickName's turn (X)</h2>
+                }
+                else
+                {
+                    <h2>It is @Model.PlayersInSpecificGame[1].NickName's turn (O)</h2>
                 }
             }
         }
     }
-@{
 }
 
 @using (Html.BeginForm("PlaceMark", "GameSession", new { id = Model.GameID /* get id from game session object in model */}))

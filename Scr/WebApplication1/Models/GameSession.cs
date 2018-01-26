@@ -58,7 +58,7 @@ namespace WebApplication1.Models
 
         public bool GameOver()
         {
-            return (!GameFull && currentState == State.Started) || SpecificGame.HasWinner();
+            return (!GameFull && currentState == State.Started) || SpecificGame.HasWinner() || SpecificGame.IsBoardFull();
         }
     }
 }
