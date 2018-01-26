@@ -16,7 +16,7 @@ namespace WebApplication1
             routes.MapRoute(
                name: "GameSession",
                url: "{controller}/{action}/{id}",
-               defaults: new { controller = "GameSession", action = "CreateGameForm", id = UrlParameter.Optional }
+               defaults: new { controller = "GameSession", action = "FirstPage", id = UrlParameter.Optional }
             );
         }
     }
