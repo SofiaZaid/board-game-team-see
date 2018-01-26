@@ -9,7 +9,7 @@ namespace GameEngine
         //with player mark X, the player with player mark O and "Nobody"-when there is no player mark
         //on a certain field of the board. The property GameBoard is a two-dimensional array of the 
         //created enum type "Mark".
-        public Mark[,] gameBoard;
+        private Mark[,] gameBoard;
 
         public int XPlusY(int x, int y)
         {
@@ -157,7 +157,7 @@ namespace GameEngine
         }
 
         //Method that checks individual rows for three similar player Marks.
-        public Mark WinnerOnRow(int y)
+        private Mark WinnerOnRow(int y)
         {
             if (gameBoard[y, 0] == gameBoard[y, 1] && gameBoard[y, 1] == gameBoard[y, 2])
             {
@@ -167,7 +167,7 @@ namespace GameEngine
         }
 
         //Method that checks individual columns for three similar player Marks.
-        public Mark WinnerOnColumn(int x)
+        private Mark WinnerOnColumn(int x)
         {
             if (gameBoard[0, x] == gameBoard[1, x] && gameBoard[1, x] == gameBoard[2, x])
             {
