@@ -11,6 +11,11 @@ namespace GameEngine
         //created enum type "Mark".
         private Mark[,] gameBoard;
 
+        public int XPlusY(int x, int y)
+        {
+            return x + y;
+        }
+
         public enum Mark
         {
             Nobody,
