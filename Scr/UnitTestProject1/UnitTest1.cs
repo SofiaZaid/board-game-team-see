@@ -18,6 +18,35 @@ namespace UnitTestProject1
 
         }
 
+        [TestMethod]
+        public void Game_GetMarkAt()
+        {
+            var sut = new Game();
+            sut.gameBoard[1, 1] = Game.Mark.PlayerO;
+            var result = sut.GetMarkAt(1, 1);
+            Assert.AreEqual(Game.Mark.PlayerO,result);
+                
+        }
+
+        [TestMethod]
+        public void Game_WinnerOnColumn()
+        {
+            var sut = new Game();
+            var result = sut.WinnerOnRow(1);
+            Assert.AreEqual(Game.Mark.Nobody, result);
+        }
+
+
+        [TestMethod]
+        public void Game_isFree()
+        {
+            var sut = new Game();
+            var result = sut.IsFree(1, 1);
+
+            Assert.IsTrue(result);
+        }
+
+        
         //TestMethod that tests so that currentPlayer from the beginning is player X and so that the currentPlayer value is changed 
         //into PlayerO when method ChangePlayerTurn is called.
         [TestMethod]
@@ -27,12 +56,13 @@ namespace UnitTestProject1
             Game.Mark currentPlayer = game.CurrentPlayer;
             game.ChangePlayerTurn();
             Game.Mark newcurrentPlayer = game.CurrentPlayer;
-            Assert.Equals(newcurrentPlayer, Game.Mark.PlayerO);
-            Assert.Equals(currentPlayer, Game.Mark.PlayerX);
+            Assert.AreEqual(newcurrentPlayer, Game.Mark.PlayerO);
+            Assert.AreEqual(currentPlayer, Game.Mark.PlayerX);
         }
 
         //Method that tests methods PlaceMark and GetMarkAt to see that after we have placed a mark on the gameboard 
         //playerbefore is not the currentplayer and that the mark we now see placed on the board belongs to playerbefore.
+        [TestMethod]
         public void CheckThatCorrectMarkIsReturnedDependingOnXAndYCoordinates()
         {
             Game game = new Game();
@@ -42,5 +72,11 @@ namespace UnitTestProject1
             Assert.AreEqual(playerBefore, game.GetMarkAt(2, 1));
 
         }
+
+        
+
+
+
+
     }
 }
