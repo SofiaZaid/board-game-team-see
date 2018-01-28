@@ -36,6 +36,8 @@ namespace UnitTestProject1
             Assert.AreEqual(Game.Mark.Nobody, result);
         }
 
+        public void GameHasWInner
+
 
         [TestMethod]
         public void Game_isFree()
@@ -72,11 +74,5 @@ namespace UnitTestProject1
             Assert.AreEqual(playerBefore, game.GetMarkAt(2, 1));
 
         }
-
-        
-
-
-
-
     }
 }
