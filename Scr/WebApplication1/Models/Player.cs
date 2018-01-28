@@ -13,5 +13,6 @@ namespace WebApplication1.Models
         public int PlayerID { get; set; }
         public Game.Mark MarkId { get; set; } 
         public int GameID { get; set; }
+        public string Email { get; set; }
     }
 }

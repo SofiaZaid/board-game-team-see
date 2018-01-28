@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using GameEngine;
+using WebApplication1.Mail;
 
 namespace WebApplication1.Controllers
 {
@@ -15,9 +16,9 @@ namespace WebApplication1.Controllers
         // GET: Default
         private static Random idGenerator = new Random();
         private static Dictionary<int, GameSession> GameSessions = new Dictionary<int, GameSession>();
-
+        private MailService mailService = new MailService();
+        
         //Lista som byggs upp för att skicka vidare till viewen.
-        [Route("")]
         public ActionResult FirstPage()
         {
             Player currentPlayer = (Player)Session["player"];
@@ -39,7 +40,7 @@ namespace WebApplication1.Controllers
             return View("FirstPage", openGames);
         }
 
-        public ActionResult JoinGame(string playerOName, int ? id)
+        public ActionResult JoinGame(string playerOName, int ? id, string playerOEmail)
         {
             if (id != null)
             {
@@ -49,8 +50,10 @@ namespace WebApplication1.Controllers
                     NickName = playerOName,
                     PlayerID = idGenerator.Next(),
                     MarkId = Game.Mark.PlayerO,
-                    GameID = (int)id
+                    GameID = (int)id,
+                    Email = playerOEmail
                 };
+      
                 game.JoinGame(secondPlayer);
                 game.StartGame();
                 Session["player"] = secondPlayer;
@@ -62,13 +65,14 @@ namespace WebApplication1.Controllers
             }
         }
 
-        public ActionResult CreateGame(string playerXName)
+        public ActionResult CreateGame(string playerXName,string playerXEmail)
         {
             System.Diagnostics.Debug.WriteLine("Creating game for player " + playerXName);
             int gameID = idGenerator.Next();
             GameSession newGame = new GameSession(gameID);
             GameSessions.Add(gameID, newGame);
-            Player firstPlayer = new Player { NickName = playerXName, GameID = gameID, MarkId = Game.Mark.PlayerX, PlayerID = idGenerator.Next() };
+            Player firstPlayer = new Player { NickName = playerXName, GameID = gameID, MarkId = Game.Mark.PlayerX, PlayerID = idGenerator.Next(),Email = playerXEmail };
+
             newGame.JoinGame(firstPlayer);
             Session["player"] = firstPlayer;
             return RedirectToBoard(gameID);
@@ -105,11 +109,21 @@ namespace WebApplication1.Controllers
             string[] values = coordinates.Split(',');
 
             var isOk = game.SpecificGame.PlaceMark(Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
-
+            
             if (!isOk)
             {
                 // show some sort of error message view?
             }
+
+            var playerList = GameSessions.Select(gamesession => gamesession.Value.PlayersInSpecificGame).FirstOrDefault();
+            var opponentPlayer = playerList.Where(player => player.MarkId != ((Player)Session["player"]).MarkId);
+
+            if (opponentPlayer != null)
+            {
+                mailService.SendEmail(opponentPlayer.FirstOrDefault().Email, opponentPlayer.FirstOrDefault().NickName);
+
+            }
+
             return RedirectToBoard(id);
         }
 
@@ -123,12 +137,6 @@ namespace WebApplication1.Controllers
 
             return View();
         }
-
-        //public ActionResult Sida2()
-        //{
-        //    ////Class1 myClass = new Class1();
-        //    //int result = myClass.AddNumbers(2,2);
-        //    //return View();
-        //}
+        
     }
 }
