@@ -17,6 +17,7 @@ namespace WebApplication1.Controllers
         private static Dictionary<int, GameSession> GameSessions = new Dictionary<int, GameSession>();
 
         //Lista som byggs upp för att skicka vidare till viewen.
+        [Route("")]
         public ActionResult FirstPage()
         {
             Player currentPlayer = (Player)Session["player"];
