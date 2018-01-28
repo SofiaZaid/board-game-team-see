@@ -17,7 +17,7 @@ namespace WebApplication1.Mail
 
                 mail.To.Add(email);
                 mail.Subject = "Tic tac toe";
-                mail.Body = "Hi"+ nickName + "it is your turn";
+                mail.Body = "Hello "+ nickName + " it's your turn";
                 SmtpServer.Port = 587;
 
                 SmtpServer.UseDefaultCredentials = false;
