@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GameEngine;
 
-namespace UnitTestProject1
+namespace UnitTestGameEngine
 {
     [TestClass]
     public class GameEngineTests

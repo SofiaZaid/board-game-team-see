@@ -142,7 +142,7 @@
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\GameEngine.csproj">
+    <ProjectReference Include="..\GameEngine\GameEngine.csproj">
       <Project>{c0d6b8f7-1f7c-45ef-bc15-2301a0b7a436}</Project>
       <Name>GameEngine</Name>
     </ProjectReference>

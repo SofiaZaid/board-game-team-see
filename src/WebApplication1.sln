@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{E9C87F0F-0B32-4846-B23E-E1640B56661D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine", "ClassLibrary1\GameEngine.csproj", "{C0D6B8F7-1F7C-45EF-BC15-2301A0B7A436}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine", "GameEngine\GameEngine.csproj", "{C0D6B8F7-1F7C-45EF-BC15-2301A0B7A436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestGameEngine", "UnitTestProject1\UnitTestGameEngine.csproj", "{5AB744CD-0E4F-4274-B223-DA3C6260B46A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestGameEngine", "UnitTestGameEngine\UnitTestGameEngine.csproj", "{5AB744CD-0E4F-4274-B223-DA3C6260B46A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{75DC1DC9-136F-4BE1-B4CD-A2927571E8AB}"
 	ProjectSection(SolutionItems) = preProject
