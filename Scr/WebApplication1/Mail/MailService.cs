@@ -12,7 +12,7 @@ namespace WebApplication1.Mail
                 SmtpClient SmtpServer = new SmtpClient("smtp.live.com");
                 var mail = new MailMessage
                 {
-                    From = new MailAddress("tictatctoe@hotmail.com")
+                    From = new MailAddress("teamemaemesof@outlook.com")
                 };
 
                 mail.To.Add(email);
@@ -21,7 +21,7 @@ namespace WebApplication1.Mail
                 SmtpServer.Port = 587;
 
                 SmtpServer.UseDefaultCredentials = false;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("tictatctoe@hotmail.com", "emelie1234");
+                SmtpServer.Credentials = new System.Net.NetworkCredential("teamemaemesof@outlook.com", "losenord123");
                 SmtpServer.EnableSsl = true;
                 SmtpServer.Send(mail);
             }
