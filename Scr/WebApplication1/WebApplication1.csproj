@@ -89,9 +89,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\Content\LudoStyle.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="board-game-team-see-master\board-game-team-see-master\Content\reset.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -109,9 +106,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="board-game-team-see-master\board-game-team-see-master\Assignment.sv.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\Content\README.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="board-game-team-see-master\board-game-team-see-master\DocsSrc\.gitignore">
@@ -186,7 +180,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\GameSession\ShowGameBoard.cshtml" />
-    <Content Include="Views\GameSession\StartPage.cshtml" />
     <Content Include="Views\GameSession\FirstPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -36,8 +36,15 @@ namespace UnitTestProject1
             Assert.AreEqual(Game.Mark.Nobody, result);
         }
 
-        public void GameHasWInner
-
+        //public void GameHasWInner
+        [TestMethod]
+        public void ControlOfWhetherGameHasAWinner()
+        {
+            Game game = new Game();
+            game.PlaceMark(0, 0);
+            game.PlaceMark(0, 1);
+            game.PlaceMark(0, 2);
+        }
 
         [TestMethod]
         public void Game_isFree()
