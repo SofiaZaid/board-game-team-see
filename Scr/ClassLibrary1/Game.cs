@@ -79,11 +79,6 @@ namespace GameEngine
             {
                 gameBoard[y, x] = currentPlayer;
                 ChangePlayerTurn();
-                if (WinnerOnRows() != Mark.Nobody || WinnerOnColumns() != Mark.Nobody || WinnerOnDiagonals() != Mark.Nobody)
-                {
-                    //player won
-                }
-
                 return true;
             }
             //Maybe not an exception here?
@@ -229,10 +224,10 @@ namespace GameEngine
             }
             return boardString;
         }
-        public void OnClick(object sender, EventArgs e)
+       /* public void OnClick(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
             clickedButton.Text = "...button clicked...";
-        }
+        }*/
     }
 }

@@ -23,16 +23,20 @@
 @{
     if (Model.GameOver())
     {
-        <h3>The game is over you fools!</h3>
+        <h3>The game is over!</h3>
         if (Model.SpecificGame.HasWinner())
         {
             if (Model.SpecificGame.WhoIsWinner() == GameEngine.Game.Mark.PlayerO)
             {
                 <h2>@Model.PlayersInSpecificGame[1].NickName is the winner!</h2>
             }
-            else
+            if(Model.SpecificGame.WhoIsWinner() == GameEngine.Game.Mark.PlayerX)
             {
                 <h2>@Model.PlayersInSpecificGame[0].NickName is the winner!</h2>
+            }
+            else
+            {
+                <h2>There was no winner!</h2>
             }
         }
         <a href="/">Go back to the lobby</a>

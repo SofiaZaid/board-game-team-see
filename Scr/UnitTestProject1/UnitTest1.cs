@@ -18,24 +18,24 @@ namespace UnitTestProject1
 
         }
 
-        /*[TestMethod]
+        [TestMethod]
         public void Game_HasNoWinner()
         {
             var sut = new Game();
             sut.PlaceMark(0, 0);
-            sut.PlaceMark(0, 2);
             sut.PlaceMark(0, 1);
-            sut.PlaceMark(0, );
-            sut.PlaceMark(0, 2);
+            sut.PlaceMark(1, 1);
+            sut.PlaceMark(2, 2);
             sut.PlaceMark(0, 1);
-            sut.PlaceMark(0, 0);
             sut.PlaceMark(0, 2);
-            sut.PlaceMark(0, 1);
+            sut.PlaceMark(1, 2);
+            sut.PlaceMark(2, 1);
+            sut.PlaceMark(0, 2);
 
-            var result = sut.WinnerOnRow(1);
+            var result = sut.WhoIsWinner();
             Assert.AreEqual(Game.Mark.Nobody, result);
         }
-    */
+
         //public void GameHasWInner
         [TestMethod]
         public void ControlOfWhetherGameHasAWinnerOnColumn()
@@ -73,9 +73,7 @@ namespace UnitTestProject1
             game.PlaceMark(0, 2);
             var result = game.HasWinner();
             Assert.IsTrue(result);
-            Assert.AreEqual(game.GetMarkAt(0, 2), game.WhoIsWinner());
-            
-
+            Assert.AreEqual(game.GetMarkAt(0, 2), game.WhoIsWinner());           
         }
 
         [TestMethod]
