@@ -10,14 +10,10 @@ namespace UnitTestProject1
         Game ge = new Game();
 
         [TestMethod]
-        public void TestMethod1()
+        public void ChangeOfPlayerTurn()
         {
-            Game game = new Game();
-            var result = game.XPlusY(1,2);
-            Assert.AreEqual(3,result);
 
         }
-
         [TestMethod]
         public void Game_HasNoWinner()
         {

@@ -12,13 +12,16 @@ namespace WebApplication1.Controllers
 
     public class GameSessionController : Controller
     {
-        // private static GameSession game = new GameSession();
         // GET: Default
         private static Random idGenerator = new Random();
         private static Dictionary<int, GameSession> GameSessions = new Dictionary<int, GameSession>();
         private MailService mailService = new MailService();
-        
-        //Lista som byggs upp för att skicka vidare till viewen.
+
+        //Method that creates a session for a specific player, if the player has no session already. If the player already has a game
+        //that is ongoing the player is re-directed to this game in the web browser. In this action method a list over open games on
+        //the webserver is also created. All Games that are currently stored in the dictionary GameSessions are looped through, all
+        //games that are available to join are added to the list of open games. Then the first page is returned where the user can
+        //see the open games.
         public ActionResult FirstPage()
         {
             Player currentPlayer = (Player)Session["player"];
@@ -82,11 +85,6 @@ namespace WebApplication1.Controllers
         public ActionResult ShowGameBoard(int id)
         {
             GameSession game = GameSessions[id];
-            /*if (!string.IsNullOrEmpty(mark))
-            {
-                ViewBag.Result = "X";
-                ViewBag.Button = mark;
-            }*/
             System.Diagnostics.Debug.WriteLine("Showing the game board for game " + id);
             System.Diagnostics.Debug.WriteLine(game.SpecificGame.PrintGameBoard());
             return View("ShowGameBoard", game);
@@ -94,9 +92,7 @@ namespace WebApplication1.Controllers
         public ActionResult PlaceMark(int id, string coordinates)
         {
             GameSession game = GameSessions[id];
-            /*ViewBag.Result = "X";
-            ViewBag.Button = mark;
-            return View();*/
+
             if (((Player)Session["player"]).MarkId != game.SpecificGame.CurrentPlayer)
             {
                 return RedirectToBoard(id);

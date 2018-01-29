@@ -26,11 +26,6 @@ namespace WebApplication1.Models
             Waiting,
             Started
         }
-        /*        public int CreateGameIDForSession()
-                {
-                    int sessionNumber = new Random().Next();
-                    return sessionNumber;
-                }*/
 
         public GameSession(int gameID)
         {
