@@ -10,11 +10,6 @@ namespace UnitTestProject1
         Game ge = new Game();
 
         [TestMethod]
-        public void ChangeOfPlayerTurn()
-        {
-
-        }
-        [TestMethod]
         public void Game_HasNoWinner()
         {
             var sut = new Game();
@@ -88,11 +83,11 @@ namespace UnitTestProject1
         public void CorrectlyChangingPlayerTurn()
         {
             Game game = new Game();
-            Game.Mark currentPlayer = game.CurrentPlayer;
-            game.ChangePlayerTurn();
-            Game.Mark newcurrentPlayer = game.CurrentPlayer;
-            Assert.AreEqual(newcurrentPlayer, Game.Mark.PlayerO);
-            Assert.AreEqual(currentPlayer, Game.Mark.PlayerX);
+            game.PlaceMark(1,1);
+            game.PlaceMark(2, 1);
+            
+            Assert.AreEqual(Game.Mark.PlayerX, game.GetMarkAt(1,1));
+            Assert.AreEqual(Game.Mark.PlayerO, game.GetMarkAt(2,1));
         }
 
         //Method that tests methods PlaceMark and GetMarkAt to see that after we have placed a mark on the gameboard 

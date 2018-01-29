@@ -24,7 +24,6 @@ namespace GameEngine
             { 
                 return currentPlayer;
             }
-
         }
         private Mark currentPlayer = Mark.PlayerX;
 
@@ -44,7 +43,7 @@ namespace GameEngine
             }
         }
 
-        public void ChangePlayerTurn()
+        private void ChangePlayerTurn()
         {
             if (currentPlayer == Mark.PlayerX)
             {
@@ -76,7 +75,6 @@ namespace GameEngine
                 ChangePlayerTurn();
                 return true;
             }
-            //Maybe not an exception here?
             return false;
         }
 
@@ -146,7 +144,7 @@ namespace GameEngine
             return Mark.Nobody;
         }
 
-        //Method that checks individual rows for three similar player Marks.
+        //Method that checks individual rows for three similar player Marks, meaning there is a winner.
         private Mark WinnerOnRow(int y)
         {
             if (gameBoard[y, 0] == gameBoard[y, 1] && gameBoard[y, 1] == gameBoard[y, 2])
@@ -219,10 +217,5 @@ namespace GameEngine
             }
             return boardString;
         }
-       /* public void OnClick(object sender, EventArgs e)
-        {
-            Button clickedButton = (Button)sender;
-            clickedButton.Text = "...button clicked...";
-        }*/
     }
 }
