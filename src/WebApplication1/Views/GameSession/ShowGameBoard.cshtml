@@ -24,20 +24,17 @@
     if (Model.GameOver())
     {
         <h3>The game is over!</h3>
-        if (Model.SpecificGame.HasWinner())
+        switch (Model.SpecificGame.WhoIsWinner())
         {
-            if (Model.SpecificGame.WhoIsWinner() == GameEngine.Game.Mark.PlayerO)
-            {
+            case GameEngine.Game.Mark.PlayerO:
                 <h2>@Model.PlayersInSpecificGame[1].NickName is the winner!</h2>
-            }
-            if(Model.SpecificGame.WhoIsWinner() == GameEngine.Game.Mark.PlayerX)
-            {
+                break;
+            case GameEngine.Game.Mark.PlayerX:
                 <h2>@Model.PlayersInSpecificGame[0].NickName is the winner!</h2>
-            }
-            else
-            {
-                <h2>There was no winner!</h2>
-            }
+                break;
+            default:
+                <h2>There was no winner...</h2>
+                break;
         }
         <a href="/">Go back to the lobby</a>
     }
@@ -49,16 +46,13 @@
         }
         else
         {
-            if (!Model.SpecificGame.HasWinner())
+            if (Model.SpecificGame.CurrentPlayer == GameEngine.Game.Mark.PlayerX)
             {
-                if (Model.SpecificGame.CurrentPlayer == GameEngine.Game.Mark.PlayerX)
-                {
-                    <h2>It is @Model.PlayersInSpecificGame[0].NickName's turn (X)</h2>
-                }
-                else
-                {
-                    <h2>It is @Model.PlayersInSpecificGame[1].NickName's turn (O)</h2>
-                }
+                <h2>It is @Model.PlayersInSpecificGame[0].NickName's turn (X)</h2>
+            }
+            else
+            {
+                <h2>It is @Model.PlayersInSpecificGame[1].NickName's turn (O)</h2>
             }
         }
     }
