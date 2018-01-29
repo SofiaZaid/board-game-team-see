@@ -18,32 +18,64 @@ namespace UnitTestProject1
 
         }
 
-        [TestMethod]
-        public void Game_GetMarkAt()
+        /*[TestMethod]
+        public void Game_HasNoWinner()
         {
             var sut = new Game();
-            sut.gameBoard[1, 1] = Game.Mark.PlayerO;
-            var result = sut.GetMarkAt(1, 1);
-            Assert.AreEqual(Game.Mark.PlayerO,result);
-                
-        }
+            sut.PlaceMark(0, 0);
+            sut.PlaceMark(0, 2);
+            sut.PlaceMark(0, 1);
+            sut.PlaceMark(0, );
+            sut.PlaceMark(0, 2);
+            sut.PlaceMark(0, 1);
+            sut.PlaceMark(0, 0);
+            sut.PlaceMark(0, 2);
+            sut.PlaceMark(0, 1);
 
-        [TestMethod]
-        public void Game_WinnerOnColumn()
-        {
-            var sut = new Game();
             var result = sut.WinnerOnRow(1);
             Assert.AreEqual(Game.Mark.Nobody, result);
         }
-
+    */
         //public void GameHasWInner
         [TestMethod]
-        public void ControlOfWhetherGameHasAWinner()
+        public void ControlOfWhetherGameHasAWinnerOnColumn()
+        {
+            Game game = new Game();
+            game.PlaceMark(0, 0);
+            game.PlaceMark(1,1);
+            game.PlaceMark(0, 1);
+            game.PlaceMark(2, 2);
+            game.PlaceMark(0, 2);
+            var result = game.HasWinner();
+            Assert.IsTrue(result);
+        }
+
+        public void ControlOfWhetherGameHasWinnerOnRow()
         {
             Game game = new Game();
             game.PlaceMark(0, 0);
             game.PlaceMark(0, 1);
+            game.PlaceMark(1, 0);
             game.PlaceMark(0, 2);
+            game.PlaceMark(2, 0);
+            var result = game.HasWinner();
+            Assert.IsTrue(result);
+        }
+
+        public void ControlOfWhetherGameHasWinnerOnColumn()
+        {
+            Game game = new Game();
+            game.PlaceMark(0, 0);
+            game.PlaceMark(2, 0);
+            game.PlaceMark(0, 1);
+            game.PlaceMark(1, 1);
+            game.PlaceMark(2, 2);
+            game.PlaceMark(0, 2);
+            var result = game.HasWinner();
+            Assert.IsTrue(result);
+            Assert.AreEqual(game.GetMarkAt(0, 2), game.WhoIsWinner());
+            
+
         }
 
         [TestMethod]
