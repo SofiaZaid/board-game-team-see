@@ -12,7 +12,7 @@ namespace WebApplication1.Mail
                 SmtpClient SmtpServer = new SmtpClient("smtp.live.com");
                 var mail = new MailMessage
                 {
-                    From = new MailAddress("tictatctoe@hotmail.com ")
+                    From = new MailAddress("tictatctoe@hotmail.com")
                 };
 
                 mail.To.Add(email);
