@@ -89,9 +89,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\Content\reset.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -99,54 +96,6 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="board-game-team-see-master\board-game-team-see-master\.gitignore">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\Assignment.en.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\Assignment.sv.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\DocsSrc\.gitignore">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\DocsSrc\architecture\index.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\DocsSrc\docfx.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\DocsSrc\gameengine\.gitignore">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\DocsSrc\gameengine\index.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\DocsSrc\index.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\DocsSrc\README.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\DocsSrc\toc.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\DocsSrc\userstories\index.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\Hints.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\LICENSE">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\README.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="board-game-team-see-master\board-game-team-see-master\Scr\README.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

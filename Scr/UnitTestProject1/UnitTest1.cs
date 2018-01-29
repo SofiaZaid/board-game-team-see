@@ -83,11 +83,9 @@ namespace UnitTestProject1
         public void CorrectlyChangingPlayerTurn()
         {
             Game game = new Game();
+            Game.Mark firstPlayer = game.CurrentPlayer;
             game.PlaceMark(1,1);
-            game.PlaceMark(2, 1);
-            
-            Assert.AreEqual(Game.Mark.PlayerX, game.GetMarkAt(1,1));
-            Assert.AreEqual(Game.Mark.PlayerO, game.GetMarkAt(2,1));
+            Assert.AreNotEqual(game.CurrentPlayer, firstPlayer);
         }
 
         //Method that tests methods PlaceMark and GetMarkAt to see that after we have placed a mark on the gameboard 
