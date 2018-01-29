@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameEngine;
 
-namespace WebApplication1.Models
+namespace TicTacToe.Models
 {
     public class Player
     {     

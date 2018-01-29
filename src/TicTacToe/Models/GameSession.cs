@@ -5,7 +5,7 @@ using System.Web;
 using GameEngine;
 
 //Webbackend for tic-tac toe. GameSession blir värdet, nyckeln blir ett sessionsID.
-namespace WebApplication1.Models
+namespace TicTacToe.Models
 {
     public class GameSession
     {

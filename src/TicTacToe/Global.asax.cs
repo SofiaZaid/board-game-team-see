@@ -7,7 +7,7 @@ using System.Web.Routing;
 
 //viktig fil som ej får tas bort om något ska fungera. Det första som körs när man anropar webbservern. Finns lite olika events, application_start är 
 //ett sådant event. Man kan även lägga in egna mer specifika events.
-namespace WebApplication1
+namespace TicTacToe
 {
     public class MvcApplication : System.Web.HttpApplication
     {

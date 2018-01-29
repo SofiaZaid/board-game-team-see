@@ -1,10 +1,10 @@
-﻿@model List<WebApplication1.Models.GameSession>
+﻿@model List<TicTacToe.Models.GameSession>
 @{
     ViewBag.Title = "Startpage";
 }
 @helper listOpenGames()
 {
-foreach(WebApplication1.Models.GameSession g in Model)
+foreach(TicTacToe.Models.GameSession g in Model)
 {
         <option value="@g.GameID">@g.PlayersInSpecificGame[0].NickName's game</option>
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebApplication1.Models;
+using TicTacToe.Models;
 using GameEngine;
-using WebApplication1.Mail;
+using TicTacToe.Mail;
 
-namespace WebApplication1.Controllers
+namespace TicTacToe.Controllers
 {
 
     public class GameSessionController : Controller

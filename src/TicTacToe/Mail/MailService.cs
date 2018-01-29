@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
 
-namespace WebApplication1.Mail
+namespace TicTacToe.Mail
 {
     public class MailService : IMailService
     {

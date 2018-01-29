@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.Mail
+﻿namespace TicTacToe.Mail
 {
     interface IMailService
     {
