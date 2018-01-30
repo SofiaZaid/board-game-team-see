@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mail;
+using System.Text.RegularExpressions;
 
 namespace TicTacToe.Mail
 {
@@ -14,10 +15,11 @@ namespace TicTacToe.Mail
                 {
                     From = new MailAddress("teamemaemesof@outlook.com")
                 };
+            
 
                 mail.To.Add(email);
                 mail.Subject = "Tic tac toe";
-                mail.Body = "Hello "+ nickName + " it's your turn";
+                mail.Body = "Hello " + nickName + " it's your turn";
                 SmtpServer.Port = 587;
 
                 SmtpServer.UseDefaultCredentials = false;
@@ -30,5 +32,15 @@ namespace TicTacToe.Mail
                 //ignore
             }
        }
+
+       public bool IsMailOK(string mail)
+        {
+            Regex rx = new Regex(
+                   @"^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*
+                    @[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$");
+
+            return(rx.IsMatch(mail));
+           
+        }
     }
 }
