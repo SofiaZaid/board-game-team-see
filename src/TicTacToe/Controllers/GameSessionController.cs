@@ -115,9 +115,7 @@ namespace TicTacToe.Controllers
             if (opponentPlayer != null)
             {
                 mailService.SendEmail(opponentPlayer.FirstOrDefault().Email, opponentPlayer.FirstOrDefault().NickName);
-
             }
-
             return RedirectToBoard(id);
         }
 
@@ -126,11 +124,11 @@ namespace TicTacToe.Controllers
             return Redirect("/GameSession/ShowGameBoard/" + id.ToString());
         }
 
-        public ActionResult StartPage()
+        /*public ActionResult StartPage()
         {
 
             return View();
-        }
+        }*/
 
     }
 }

@@ -14,9 +14,24 @@ Klassen Player är en klass bestående av enbart properties: egenskaper som kan 
 
 ### View
 För att tydliggöra att våra två Views båda är knutna till spelsessioner skapade vi en undermapp med namnet "GameSession". Vårt program har två Views: FirstPage och ShowGameBoard. 
-FirstPage är den view som renderar lobbyn för spelet, dvs. den sida där man välkommnas till spelet och kan skapa en ny spelsession eller ur en lista välja en redan skapad spelsession som man vill delta i. I "FirstPage" konstruerade vi en helper-metod för att kunna rendera en lista över redan skapade spel som en andra spelare kan ansluta till. Denna helpermetod anropas inuti vår responsmetod Html.BeginForm("JoinGame", "GameSession"), en lista över öppna spel kommer då att visas i en drop-down meny. I "FirstPage" definierar vi även att när ActionResult-metoden "CreateGame" körs så ska värdena i dem två textfälten där man matar in nickname respektive mailadress för spelare X (spelaren som skapar spelsessionen) sparas till ett spelarobjekt. Sparandet av dessa värden sker indirekt, genom interaktionen med controllern och actionresult-metoden "CreateGame".
+**FirstPage**
+Den view som renderar lobbyn för spelet, dvs. den sida där man välkommnas till spelet och kan skapa en ny spelsession eller ur en lista välja en redan skapad spelsession som man 
+vill delta i. I "FirstPage" konstruerade vi en helper-metod för att kunna rendera en lista över redan skapade spel som en andra spelare kan ansluta till. Denna helpermetod anropas 
+inuti vår responsmetod Html.BeginForm("JoinGame", "GameSession"), en lista över öppna spel kommer då att visas i en drop-down meny. I "FirstPage" definierar vi även att när 
+ActionResult-metoden "CreateGame" körs så ska värdena i dem två textfälten där man matar in nickname respektive mailadress för spelare X (spelaren som skapar spelsessionen) sparas 
+till ett spelarobjekt. Sparandet av dessa värden sker indirekt, genom interaktionen med controllern och actionresult-metoden "CreateGame".
 
-ShowGameBoard hanterar GUI:t och användarens interaktion med detta när en spelare väl är delaktig i en spelsession. För att en korrekt representation av spelbrädet ska visas utifrån vilka markörer som för tillfället finns placerade på brädet skapades helper-metoden "showMarkAt(int x, int y)". Denna metod interagerar med modellen genom propertyn "SpecificGame" i GameSession-objektet som refererar till ett specifikt "Game"-objekt, genom denna property kan vi anropa metoden "GetMarkAt" ur "Game"-klassen och beroende på vilken markör som finns på ett specifikt fält ska antingen X, O eller ingenting visas. I responsmetoden "Html.BeginForm("PlaceMark","GameSession", id = Model.GameID)" anropas helper-metoden "GetMarkAt" på varje button-objekt för att korrekt markör ska visas för varje knapp/fält vid varje givet tillfälle. I ShowGameBoard-viewen hanteras även vad som ska visas på webbsidan när någon av de två spelarna har vunnit, eller ifall spelet är över och det ej finns någon vinnare, detta hanteras genom anrop till metoden "GameOver" i "GameSession"-klassen. För att indikera för en spelare att spelet ej är startat, dvs. att det ännu ej finns en andra spelare ansluten anropas metoden "GameFull" i "GameSession"-klassen, om denna metod utvärderas till false ska texten "waiting for players..." visas. För att även visa en korrekt representation av vems tur det är att spela kontrolleras först ifall metoden "HasWinner" utvärderas till false, i sådana fall kontrolleras det vems tur det är genom att på "SpecificGame" anropa metoden "WhoIsWinner". Utifrån vilken av spelarmarkörerna det är som vunnit hämtar vi spelarens NickName ur listan "PlayersInSpecificGame" i "GameSession"-objektet. 
+**ShowGameBoard**
+Hanterar GUI:t och användarens interaktion med detta när en spelare väl är delaktig i en spelsession. För att en korrekt representation av spelbrädet ska visas utifrån vilka markörer 
+som för tillfället finns placerade på brädet skapades helper-metoden "showMarkAt(int x, int y)". Denna metod interagerar med modellen genom propertyn "SpecificGame" i GameSession-objektet 
+som refererar till ett specifikt "Game"-objekt, genom denna property kan vi anropa metoden "GetMarkAt" ur "Game"-klassen och beroende på vilken markör som finns på ett specifikt fält ska 
+antingen X, O eller ingenting visas. I responsmetoden "Html.BeginForm("PlaceMark","GameSession", id = Model.GameID)" anropas helper-metoden "GetMarkAt" på varje button-objekt för att korrekt 
+markör ska visas för varje knapp/fält vid varje givet tillfälle. Detta html-form interagerar med actionresult-metoden "placemark" för att korrekt markör ska visas på det fält där en spelare
+placerat ut en markör. I ShowGameBoard-view hanteras även vad som ska visas på webbsidan när någon av de två spelarna har vunnit, eller ifall 
+spelet är över och det ej finns någon vinnare, detta hanteras genom anrop till metoden "GameOver" i "GameSession"-klassen. För att indikera för en spelare att spelet ej är startat, dvs. att 
+det ännu ej finns en andra spelare ansluten anropas metoden "GameFull" i "GameSession"-klassen, om denna metod utvärderas till false ska texten "waiting for players..." visas. För att även 
+visa en korrekt representation av vems tur det är att spela kontrolleras först ifall metoden "HasWinner" utvärderas till false, i sådana fall kontrolleras det vems tur det är genom att på 
+"SpecificGame" anropa metoden "WhoIsWinner". Utifrån vilken av spelarmarkörerna det är som vunnit hämtar vi spelarens NickName ur listan "PlayersInSpecificGame" i "GameSession"-objektet. 
 		
 		
 ### Controller 
@@ -45,7 +60,13 @@ Hanterar requests till webservern rörande en av de viktigaste aspekterna i spel
 spelplanen. Som argument tas ett id och en sträng av koordinater. För att veta vilken spelsession det är som en markör ska placeras ut
 i tilldelar vi GameSessionen med det id vi får in via metoden till en instans av GameSession-klassen. Ifall spelaren som
 försöker placera ut sin markör är nuvarande "currentPlayer" eller om spelet ej är fullt (det ej finns två spelare i den specifika sessionen redan)
-omdirigeras man till spelplanen så som den ser ut för tillfället. I annat fall delas strängen "coordinates" upp 
+omdirigeras man till spelplanen så som den ser ut för tillfället. I annat fall delas strängen "coordinates" upp och metoden "PlaceMark" anropas på
+game-objektet som finns i den specifika spelsessionen för att markören ska placeras ut. När en markör har placerats ut ska ett mail skickas till 
+nästa spelare och meddela att det nu är dennas tur att spela. 
+
+####RedirectToBoard
+Hjälpmetod i controllern som används för att omdirigera en request till det "game" som hör ihop med en specifik spelsession utifrån det id
+som metoden får in som argument.
 
 
 
