@@ -1,0 +1,11 @@
+- name: Create new game
+  href: createNewGame.md
+- name: Join a game
+  href: joinGame.md
+  homepage: articles/docfx_getting_started.md
+- name: Information when someone has won the game
+  href: winnerOfGame.md
+- name: The gamesession is over
+  href: gamesessionOver.md
+- name: List ongoing gamesessions
+  href: listOnGoingGames.md
