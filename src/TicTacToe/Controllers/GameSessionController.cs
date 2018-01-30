@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TicTacToe.Models;
 using GameEngine;
 using TicTacToe.Mail;
+using System.Text.RegularExpressions;
 
 namespace TicTacToe.Controllers
 {
@@ -45,8 +46,13 @@ namespace TicTacToe.Controllers
         {
             if (id != null)
             {
+                
                 GameSession game = GameSessions[(int)id];
-                Player secondPlayer = new Player
+                while(!mailService.IsMailOK(playerOEmail))
+                {
+                    //Felmedelande
+                }
+                Player secondPlayer secondPlayer = new Player
                 {
                     NickName = playerOName,
                     PlayerID = idGenerator.Next(),
@@ -54,11 +60,11 @@ namespace TicTacToe.Controllers
                     GameID = (int)id,
                     Email = playerOEmail
                 };
-      
                 game.JoinGame(secondPlayer);
                 game.StartGame();
                 Session["player"] = secondPlayer;
                 return RedirectToBoard((int)id);
+
             }
             else
             {
@@ -72,8 +78,12 @@ namespace TicTacToe.Controllers
             int gameID = idGenerator.Next();
             GameSession newGame = new GameSession(gameID);
             GameSessions.Add(gameID, newGame);
-            Player firstPlayer = new Player { NickName = playerXName, GameID = gameID, MarkId = Game.Mark.PlayerX, PlayerID = idGenerator.Next(),Email = playerXEmail };
-
+            
+            while (!mailService.IsMailOK(playerXEmail))
+            {
+                //Felmeddelande               
+            }
+            Player firstPlayer = firstPlayer = new Player { NickName = playerXName, GameID = gameID, MarkId = Game.Mark.PlayerX, PlayerID = idGenerator.Next(), Email = playerXEmail };
             newGame.JoinGame(firstPlayer);
             Session["player"] = firstPlayer;
             return RedirectToBoard(gameID);
@@ -115,7 +125,6 @@ namespace TicTacToe.Controllers
             if (opponentPlayer != null)
             {
                 mailService.SendEmail(opponentPlayer.FirstOrDefault().Email, opponentPlayer.FirstOrDefault().NickName);
-
             }
 
             return RedirectToBoard(id);
