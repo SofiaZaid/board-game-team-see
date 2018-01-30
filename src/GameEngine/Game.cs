@@ -219,7 +219,6 @@ namespace GameEngine
                 return gameBoard[0, x];
             }
             return Mark.Nobody;
-
         }
 
         /// <summary>
