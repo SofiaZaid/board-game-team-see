@@ -17,17 +17,15 @@ namespace TicTacToe.Controllers
         private static Dictionary<int, GameSession> GameSessions = new Dictionary<int, GameSession>();
         private MailService mailService = new MailService();
 
-        //Method that creates a session for a specific player, if the player has no session already. If the player already has a game
-        //that is ongoing the player is re-directed to this game in the web browser. In this action method a list over open games on
-        //the webserver is also created. All Games that are currently stored in the dictionary GameSessions are looped through, all
-        //games that are available to join are added to the list of open games. Then the first page is returned where the user can
-        //see the open games.
+        //Method that creates a session for a specific player, if the player has no session already.
+        //Else the player is re-directed to her game in the web browser. 
+        //created. Returns the first page: Lobby for Tic-tac-toe.
         public ActionResult FirstPage()
         {
             Player currentPlayer = (Player)Session["player"];
             if (currentPlayer != null)
             {
-                if(!GameSessions[currentPlayer.GameID].GameOver())
+                if (!GameSessions[currentPlayer.GameID].GameOver())
                 {
                     return RedirectToBoard(currentPlayer.GameID);
                 }
@@ -43,7 +41,7 @@ namespace TicTacToe.Controllers
             return View("FirstPage", openGames);
         }
 
-        public ActionResult JoinGame(string playerOName, int ? id, string playerOEmail)
+        public ActionResult JoinGame(string playerOName, int? id, string playerOEmail)
         {
             if (id != null)
             {
@@ -56,7 +54,7 @@ namespace TicTacToe.Controllers
                     GameID = (int)id,
                     Email = playerOEmail
                 };
-      
+
                 game.JoinGame(secondPlayer);
                 game.StartGame();
                 Session["player"] = secondPlayer;
@@ -68,13 +66,13 @@ namespace TicTacToe.Controllers
             }
         }
 
-        public ActionResult CreateGame(string playerXName,string playerXEmail)
+        public ActionResult CreateGame(string playerXName, string playerXEmail)
         {
             System.Diagnostics.Debug.WriteLine("Creating game for player " + playerXName);
             int gameID = idGenerator.Next();
             GameSession newGame = new GameSession(gameID);
             GameSessions.Add(gameID, newGame);
-            Player firstPlayer = new Player { NickName = playerXName, GameID = gameID, MarkId = Game.Mark.PlayerX, PlayerID = idGenerator.Next(),Email = playerXEmail };
+            Player firstPlayer = new Player { NickName = playerXName, GameID = gameID, MarkId = Game.Mark.PlayerX, PlayerID = idGenerator.Next(), Email = playerXEmail };
 
             newGame.JoinGame(firstPlayer);
             Session["player"] = firstPlayer;
@@ -97,7 +95,7 @@ namespace TicTacToe.Controllers
             {
                 return RedirectToBoard(id);
             }
-            if(!game.GameFull)
+            if (!game.GameFull)
             {
                 return RedirectToBoard(id);
             }
@@ -105,7 +103,7 @@ namespace TicTacToe.Controllers
             string[] values = coordinates.Split(',');
 
             var isOk = game.SpecificGame.PlaceMark(Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
-            
+
             if (!isOk)
             {
                 // show some sort of error message view?
@@ -117,9 +115,7 @@ namespace TicTacToe.Controllers
             if (opponentPlayer != null)
             {
                 mailService.SendEmail(opponentPlayer.FirstOrDefault().Email, opponentPlayer.FirstOrDefault().NickName);
-
             }
-
             return RedirectToBoard(id);
         }
 
@@ -128,11 +124,11 @@ namespace TicTacToe.Controllers
             return Redirect("/GameSession/ShowGameBoard/" + id.ToString());
         }
 
-        public ActionResult StartPage()
+        /*public ActionResult StartPage()
         {
 
             return View();
-        }
-        
+        }*/
+
     }
 }

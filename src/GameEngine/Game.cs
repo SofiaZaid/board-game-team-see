@@ -10,13 +10,17 @@ namespace GameEngine
     public class Game
     {
         /// <summary>
+        /// Property that is a two-dimensional array that is to contain values of
+        /// the Enum type "Mark". Representing the gameboard of the Game.
+        /// </summary>
+        private Mark[,] gameBoard;
+
+        /// <summary>
         /// Here we create a new type called Mark that we can use to distinguish between the player
         /// with player mark X, the player with player mark O and "Nobody"-when there is no player mark
         /// on a certain field of the board. The property GameBoard is a two-dimensional array of the 
         /// created enum type "Mark".
         /// </summary>
-        private Mark[,] gameBoard;
-
         public enum Mark
         {
             Nobody,
@@ -24,6 +28,9 @@ namespace GameEngine
             PlayerO
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Mark CurrentPlayer
         {
             get
