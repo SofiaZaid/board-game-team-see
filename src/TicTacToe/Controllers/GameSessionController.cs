@@ -82,6 +82,14 @@ namespace TicTacToe.Controllers
         //To be able to look at a specific game we need to have an ID for the game as a parameter to the Actionresult.
         public ActionResult ShowGameBoard(int id)
         {
+            if(!GameSessions.ContainsKey(id))
+            {
+                if(Session["player"] != null &&((Player)Session["player"]).GameID == id)
+                {
+                    Session.Remove("player");
+                }
+                return Redirect("/GameSession/GameNotFound");
+            }
             GameSession game = GameSessions[id];
             System.Diagnostics.Debug.WriteLine("Showing the game board for game " + id);
             System.Diagnostics.Debug.WriteLine(game.SpecificGame.PrintGameBoard());
@@ -122,6 +130,11 @@ namespace TicTacToe.Controllers
         private RedirectResult RedirectToBoard(int id)
         {
             return Redirect("/GameSession/ShowGameBoard/" + id.ToString());
+        }
+
+        public ActionResult GameNotFound()
+        {
+            return View("GameNotFound");
         }
 
         /*public ActionResult StartPage()
