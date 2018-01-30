@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using TicTacToe.Models;
 using GameEngine;
 using TicTacToe.Mail;
-using System.Text.RegularExpressions;
 
 namespace TicTacToe.Controllers
 {
@@ -26,7 +25,7 @@ namespace TicTacToe.Controllers
             Player currentPlayer = (Player)Session["player"];
             if (currentPlayer != null)
             {
-                if(!GameSessions[currentPlayer.GameID].GameOver())
+                if (!GameSessions[currentPlayer.GameID].GameOver())
                 {
                     return RedirectToBoard(currentPlayer.GameID);
                 }
@@ -42,17 +41,12 @@ namespace TicTacToe.Controllers
             return View("FirstPage", openGames);
         }
 
-        public ActionResult JoinGame(string playerOName, int ? id, string playerOEmail)
+        public ActionResult JoinGame(string playerOName, int? id, string playerOEmail)
         {
             if (id != null)
             {
-                
                 GameSession game = GameSessions[(int)id];
-                while(!mailService.IsMailOK(playerOEmail))
-                {
-                    //Felmedelande
-                }
-                Player secondPlayer secondPlayer = new Player
+                Player secondPlayer = new Player
                 {
                     NickName = playerOName,
                     PlayerID = idGenerator.Next(),
@@ -60,11 +54,11 @@ namespace TicTacToe.Controllers
                     GameID = (int)id,
                     Email = playerOEmail
                 };
+
                 game.JoinGame(secondPlayer);
                 game.StartGame();
                 Session["player"] = secondPlayer;
                 return RedirectToBoard((int)id);
-
             }
             else
             {
@@ -72,18 +66,14 @@ namespace TicTacToe.Controllers
             }
         }
 
-        public ActionResult CreateGame(string playerXName,string playerXEmail)
+        public ActionResult CreateGame(string playerXName, string playerXEmail)
         {
             System.Diagnostics.Debug.WriteLine("Creating game for player " + playerXName);
             int gameID = idGenerator.Next();
             GameSession newGame = new GameSession(gameID);
             GameSessions.Add(gameID, newGame);
-            
-            while (!mailService.IsMailOK(playerXEmail))
-            {
-                //Felmeddelande               
-            }
-            Player firstPlayer = firstPlayer = new Player { NickName = playerXName, GameID = gameID, MarkId = Game.Mark.PlayerX, PlayerID = idGenerator.Next(), Email = playerXEmail };
+            Player firstPlayer = new Player { NickName = playerXName, GameID = gameID, MarkId = Game.Mark.PlayerX, PlayerID = idGenerator.Next(), Email = playerXEmail };
+
             newGame.JoinGame(firstPlayer);
             Session["player"] = firstPlayer;
             return RedirectToBoard(gameID);
@@ -105,7 +95,7 @@ namespace TicTacToe.Controllers
             {
                 return RedirectToBoard(id);
             }
-            if(!game.GameFull)
+            if (!game.GameFull)
             {
                 return RedirectToBoard(id);
             }
@@ -113,7 +103,7 @@ namespace TicTacToe.Controllers
             string[] values = coordinates.Split(',');
 
             var isOk = game.SpecificGame.PlaceMark(Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
-            
+
             if (!isOk)
             {
                 // show some sort of error message view?
@@ -125,6 +115,7 @@ namespace TicTacToe.Controllers
             if (opponentPlayer != null)
             {
                 mailService.SendEmail(opponentPlayer.FirstOrDefault().Email, opponentPlayer.FirstOrDefault().NickName);
+
             }
 
             return RedirectToBoard(id);
@@ -140,6 +131,6 @@ namespace TicTacToe.Controllers
 
             return View();
         }
-        
+
     }
 }
