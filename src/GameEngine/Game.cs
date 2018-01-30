@@ -29,7 +29,7 @@ namespace GameEngine
         }
 
         /// <summary>
-        /// 
+        /// property that returns the Mark that is currentPlayer in a specific state of the game.
         /// </summary>
         public Mark CurrentPlayer
         {
@@ -38,10 +38,14 @@ namespace GameEngine
                 return currentPlayer;
             }
         }
+        /// <summary>
+        /// Field used to store currentPlayer. Initially set to "PlayerX" since the first player
+        /// is always PlayerX.
+        /// </summary>
         private Mark currentPlayer = Mark.PlayerX;
 
         /// <summary>
-        /// Constructor that instansiate a new gameboard.
+        /// Constructor that instantiate a new gameboard.
         /// In the beginning of the game the board has no player marks on it,
         /// this methods therefore construct the empty board for the start of the game.
         /// </summary>
@@ -79,7 +83,7 @@ namespace GameEngine
         /// currently found on the field.
         /// </summary>
         /// <param name="x">The x coordinate (column) for the field that we are checking on the board</param>
-        /// <param name="y">The y coordinate´(row) for the field that we are checking on the board</param>
+        /// <param name="y">The y coordinate (row) for the field that we are checking on the board</param>
         /// <returns>True if the Mark found on the field is "Nobody", otherwise false</returns>
         public bool IsFree(int x, int y)
         {
@@ -91,9 +95,9 @@ namespace GameEngine
         /// and if the field is free the mark of the currentPlayer is placed on the field. Then method
         /// ChangePlayerTurn is called.
         /// </summary>
-        /// <param name="x">The x coordinate (column) where we want to place a mark</param>
-        /// <param name="y">The y coordinate (row) where we want to place a mark</param>
-        /// <returns>True if it was possible to place the mark on the specified field, otherwise false</returns>
+        /// <param name="x">The x coordinate (column) where we want to place a mark.</param>
+        /// <param name="y">The y coordinate (row) where we want to place a mark.</param>
+        /// <returns>True if it was possible to place the mark on the specified field, otherwise false.</returns>
         public bool PlaceMark(int x, int y)
         {
             if (!HasWinner() && IsFree(x, y))
@@ -105,13 +109,22 @@ namespace GameEngine
             return false;
         }
 
+        /// <summary>
+        /// Method that returns the mark located on a specific field on the gameBoard.
+        /// </summary>
+        /// <param name="x">The x coordinate (column) that we want to fetch the mark from.</param>
+        /// <param name="y">The y coordinate (row) that we want to fetch the mark from.</param>
+        /// <returns>The mark located on the specified field on the board.</returns>
         public Mark GetMarkAt(int x, int y)
         {
             return gameBoard[y, x];
         }
 
-        //Method that controls if all the fields on the gameboard is full of Player Marks, or if any
-        //fields are empty. Returns true if no field is empty from any player Mark.
+        /// <summary>
+        /// Method that controls if all the fields on the gameboard is full of Player Marks, or if any
+        /// fields are empty. Returns true if no field is empty from any player Mark.
+        /// </summary>
+        /// <returns>True if board is full- no field on the gameboard is free, otherwise false.</returns>
         public bool IsBoardFull()
         {
             for (int i = 0; i < 3; i++)
@@ -128,11 +141,12 @@ namespace GameEngine
         }
 
         /// <summary>
-        /// Method that checks if there is a winner on any of the rows on the game board. Since there are three rows we need to
-        /// iterate over each of them, within the loop the method "WinnerOnRow" is called- it checks each individual row for
-        /// similar marks. Returns the player (X or O if there are a three similar Marks on any row, else returns Mark "Nobody".
+        /// Method that checks if there is a winner on any of the rows on the game board. Iterates
+        /// over each of the three rows, within the loop the method "WinnerOnRow" is called- 
+        /// checks each individual row for similar marks.
         /// </summary>
-        /// <returns>winner if any of the rows contain three similar marks that are not "Nobody", otherwise returns Nobody (meaning-no win on rows)</returns>
+        /// <returns>winner if any of the rows contain three similar marks that are not "Nobody", 
+        /// otherwise returns Nobody (meaning-no win on rows)</returns>
         private Mark WinnerOnRows()
         {
             for (int i = 0; i < 3; i++)
@@ -147,9 +161,9 @@ namespace GameEngine
         }
 
         /// <summary>
-        /// Method that checks if there is a winner on any of the columns on the game board. Since there are three columns we need to
-        /// iterate over each of them, within the loop the method "WinnerOnColumn" is called- it checks each individual column for
-        /// similar marks. Returns the player (X or O if there are a three similar Marks on any column, else returns Mark "Nobody".
+        /// Method that checks if there is a winner on any column of the gameboard.  Iterates
+        /// over each of the three columns, within the loop the method "WinnerOnColumn" is called- 
+        /// checks each individual column for similar marks.
         /// </summary>
         /// <returns>winner if any of the columns contain three similar marks that are not "Nobody", 
         /// otherwise returns Nobody (meaning-no win on columns) </returns>
@@ -168,9 +182,7 @@ namespace GameEngine
 
         /// <summary>
         /// Method that checks if there is a winner on any of the two diagonals on the game board, 
-        /// meaning: if there are three similar Marks on any of the two diagonals. Returns the 
-        /// player Mark X or O on any of the positions if this is the case. Else returns Mark.Nobody- there 
-        /// wasn't three similar Marks on any of the diagonals.
+        /// meaning: if there are three similar Marks on any of the two diagonals.
         /// </summary>
         /// <returns>The Mark of the winner (X or O), otherwise Nobody</returns>
         private Mark WinnerOnDiagonals()
@@ -211,9 +223,9 @@ namespace GameEngine
         }
 
         /// <summary>
-        /// Method that calls the method WhoIsWinner. This method is used to check if the game has any winner.
+        /// Method that checks if the game has a winner. Calls the method "WhoisWinner".
         /// </summary>
-        /// <returns>True if the winner is PlayerX or PlayerO, otherwise false</returns>
+        /// <returns>True if the winner is PlayerX or PlayerO, otherwise false.</returns>
         public bool HasWinner()
         {
             return WhoIsWinner() != Mark.Nobody;
@@ -222,7 +234,7 @@ namespace GameEngine
         /// <summary>
         /// Method that controls who the winner of the game is.
         /// </summary>
-        /// <returns>The Mark of the winner if it is either PlayerX or PlayerO</returns>
+        /// <returns>The Mark of the winner.</returns>
         public Mark WhoIsWinner()
         {
             Mark winner = Mark.Nobody;
@@ -240,7 +252,7 @@ namespace GameEngine
         }
 
         /// <summary>
-        /// Debug method to test that the correct gameboard is rendered
+        /// Debug method to test that the correct gameboard is rendered.
         /// </summary>
         /// <returns>A string representation of the gameBoard at a given state</returns>
         public string PrintGameBoard()
