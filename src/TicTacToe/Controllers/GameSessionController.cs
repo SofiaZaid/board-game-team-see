@@ -17,11 +17,9 @@ namespace TicTacToe.Controllers
         private static Dictionary<int, GameSession> GameSessions = new Dictionary<int, GameSession>();
         private MailService mailService = new MailService();
 
-        //Method that creates a session for a specific player, if the player has no session already. If the player already has a game
-        //that is ongoing the player is re-directed to this game in the web browser. In this action method a list over open games on
-        //the webserver is also created. All Games that are currently stored in the dictionary GameSessions are looped through, all
-        //games that are available to join are added to the list of open games. Then the first page is returned where the user can
-        //see the open games.
+        //Method that creates a session for a specific player, if the player has no session already.
+        //Else the player is re-directed to her game in the web browser. 
+        //created. Returns the first page: Lobby for Tic-tac-toe.
         public ActionResult FirstPage()
         {
             Player currentPlayer = (Player)Session["player"];
