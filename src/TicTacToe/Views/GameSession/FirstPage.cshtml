@@ -33,6 +33,8 @@ foreach(TicTacToe.Models.GameSession g in Model)
 <div class="form" style="margin-top: 5em;">
     @using (Html.BeginForm("JoinGame", "GameSession"))
     {
+        
+
         <input type="text" name="playerOName" placeholder="Nickname..." />
         <input type="text" name="playerOEmail" placeholder="Email" />
         <select name="id">
