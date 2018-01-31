@@ -9,15 +9,13 @@ methods in the class, at least for games that are based on a coordinate system. 
 easily be used for other similar games or with just minor adjustments to the the methods.
 
 ## Mail folder
-This folder contains two classes: MailService and the interface IMailService. MailService handles all logic that are related to the sending of mail through the webserver. There are two methods in the class:
+This folder contains two classes: MailService and the interface IMailService. MailService handles all logic that are related to the sending of mail through the webserver. There are one method in the class:
 ####SendEmail
 Method that takes two strings: nickname and email as parameters. In the method an instance of SMTP-server is created to be used for sending emails to game players when it is their turn to play (during a 
 specific game session).
-####IsMailOK
-Method that takes one string: email as parameter. Contains a regex to check that the email sent in are correctly formated.
 
-Both of the mail methods are used within our controller GameSession, an instance of the MailService class is created and is used within the PlaceMark method to send out an email to the opponent in the game
-whenever the current player at a specific state in the game has placed a mark on the gameboard.
+Thet method are used within our controller GameSession, an instance of the MailService class is created and is used within the PlaceMark method to send out an email to the opponent in the game
+whenever the current player at a specific state in the game has placed a mark on the gameboard. This happens if the player has put in her email when creating or joining a game, else no email is sent.
 
 ## Model View Controller
 ### Model
