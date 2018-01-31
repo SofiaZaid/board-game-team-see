@@ -12,14 +12,13 @@ namespace TicTacToe.Controllers
 
     public class GameSessionController : Controller
     {
-        // GET: Default
         private static Random idGenerator = new Random();
         private static Dictionary<int, GameSession> GameSessions = new Dictionary<int, GameSession>();
         private MailService mailService = new MailService();
 
         //Method that creates a session for a specific player, if the player has no session already.
         //Else the player is re-directed to her game in the web browser. 
-        //created. Returns the first page: Lobby for Tic-tac-toe.
+        //Returns the first page: Lobby for Tic-tac-toe and a list of open game sessions if there are any.
         public ActionResult FirstPage()
         {
             Player currentPlayer = (Player)Session["player"];
@@ -111,12 +110,6 @@ namespace TicTacToe.Controllers
             string[] values = coordinates.Split(',');
 
             var isOk = game.SpecificGame.PlaceMark(Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
-
-            if (!isOk)
-            {
-                // show some sort of error message view?
-            }
-
             var playerList = GameSessions.Select(gamesession => gamesession.Value.PlayersInSpecificGame).FirstOrDefault();
             var opponentPlayer = playerList.Where(player => player.MarkId != ((Player)Session["player"]).MarkId);
 
@@ -136,12 +129,5 @@ namespace TicTacToe.Controllers
         {
             return View("GameNotFound");
         }
-
-        /*public ActionResult StartPage()
-        {
-
-            return View();
-        }*/
-
     }
 }

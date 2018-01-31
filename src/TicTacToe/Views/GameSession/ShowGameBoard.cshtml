@@ -16,7 +16,6 @@
                 <div>&nbsp;</div>
                 break;
         }
-
 }
 
 <h2>Tic Tac Toe</h2>
@@ -58,7 +57,7 @@
     }
 }
 
-@using (Html.BeginForm("PlaceMark", "GameSession", new { id = Model.GameID /* get id from game session object in model */}))
+@using (Html.BeginForm("PlaceMark", "GameSession", new { id = Model.GameID }))
 {
 
     <p>

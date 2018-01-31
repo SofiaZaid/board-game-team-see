@@ -1,72 +1,112 @@
-# Dokumentation
+# Game Architecture documentation
 ## Game engine
-Vår webapplikation utgår i från vår Game klass. Där ligger all logik som har med spelet att göra. För att strukturera upp vårt projekt har vi valt att separera vår game-logik till en egen solution som heter gameengine. I GameEngine har vi konstruerat spellogiken utifrån hur det faktiska spelet Tre-i-rad fungerar oavsett huruvida det spelas via en digital lösning eller som ett traditionellt brädspel. 
+The web application's logic is placed in the GameEngine in one class called Game. The reason for only having a single class in the GameEngine is because the game in question (i.e. Tic tac toe)
+has a rather limited scope, meaning the game setup and the rules aren't that advanced. Also there was no reason to split up the logic in many different classes because all methods in the class are within 
+the same responsibility scope; they handle the setup of the game and it's rules. Since our Game class is written so that a Game object is always constructed with a gameboard that consist of 3 x 3 fields 
+it would not be possible to use the Game class for another Game with a similar setup but with a different amount of fields on the gameboard, not without some changes in the constructor setup. To make it 
+more reusable the constructor could have taken two parameters that would have defined the size of the two-dimensional array. Apart from this, one can argue for the re-usability in the most of the other 
+methods in the class, at least for games that are based on a coordinate system. For example the methods that checks for wins on different angles of the board, methods HasWinner, PlaceMark, etc. could 
+easily be used for other similar games or with just minor adjustments to the the methods.
 
-## MailMappen
-Denna mapp innehåller en klass: MailService som hanterar all logik som har med ett mailutskick att göra. I klassen finns enbart en metod: SendEmail vilken tar nickname och emailadress som argument. I metoden skapas en SMTP-server som används för att skicka ut mail till den spelare vars tur det är i spelet. Metoden anropas i controllern GameSessionController, i ActionResult-metoden "PlaceMark". Inuti denna metod anropas metoden SendEmail på ett objekt av typen MailService och utifrån att genom en lista tagit fram vilken spelare som för tillfället lägger ut en markör på brädet kan vi säga att nästa spelare i listan är motspelaren (opponentPlayer), motspelaren är då den som det kommer att skickas ut ett mail till (om att det är dennes tur att spela).
+## Mail folder
+This folder contains two classes: MailService and the interface IMailService. MailService handles all logic that are related to the sending of mail through the webserver. There are two methods in the class:
+####SendEmail
+Method that takes two strings: nickname and email as parameters. In the method an instance of SMTP-server is created to be used for sending emails to game players when it is their turn to play (during a 
+specific game session).
+####IsMailOK
+Method that takes one string: email as parameter. Contains a regex to check that the email sent in are correctly formated.
+
+Both of the mail methods are used within our controller GameSession, an instance of the MailService class is created and is used within the PlaceMark method to send out an email to the opponent in the game
+whenever the current player at a specific state in the game has placed a mark on the gameboard.
 
 ## Model View Controller
 ### Model
-I vår Modelmapp har vi skapat två klasser för att hantera affärslogik som inte i diekt mening är kopplad till logiken för spelet och dess regler: "GameSession" och "Player". Klassen GameSession hanterar både spelet (Game) och den övriga logik som krävs för att hålla reda på en specifik GameSession. Dels behövs naturligtvis ett Game-objekt som innehåller logiken för spelet och dess regler, dels behövs en lista som ska innehålla de två spelarna som deltar i spelsessionen, för att kunna identifiera en specifik session behöver vi även ett "GameID". När ett spel skapas/ en spelsession initieras av en spelare (användare) är spelet ej ännu startat, därav finns variabeln "currentState", den initieras till "waiting" för att spelet ej ska kunna startas innan en andra spelare har anslutit sig. I konstruktorn för GameSession tas ett GameID in som parameter, ett Game-objekt instansieras, parameterns värde tilldelas till propertyn "GameID" samt att listobjektet "PlayersInSpecificGame" instansieras. 
-För att hantera nödvändiga interaktioner med spelet utifrån ett Sessionsperspektiv skapade vi metoderna: JoinGame, StartGame och GameOver. JoinGame kontrollerar att det finns möjlighet att ansluta till en specifik spelsession, dvs. där finns ännu ej två spelare i sessionen och spelet är i staten "waiting". StartGame kontrollerar att "GameIsFull" har värdet "true", dvs. spelsessionen har två spelare och att spelsessionens state är "waiting", genom metoden ändras värdet på "currentState" ändras till "started"- spelsessionen är då startad. 
-GameOver kontrollerar om någon av tre möjliga utfall är sanna: att en pågående spelsession inte längre har två spelare (en person har lämnat sessionen eller har av annan anledning hoppat ur sessionen), spelet har en vinnare eller spelbrädet är fullagt utan att någon har vunnit. 
-Klassen Player är en klass bestående av enbart properties: egenskaper som kan knytas till en specifik spelare. Ett spelarobjekt får t.ex. ett specifikt Game-objekt kopplat till sig via propertyn "GameID". 
+In the Model folder we created two classes that handles data and business logic connected to the scenario when two players at a specific time are playing the game, the classes are: GameSession and Player. 
+The data and business logic in these classes can't really be considered to be a part of the logic for the game itself and its rules, therefore they were placed in the Model folder, they are more closely
+affiliated with the controller and the views.
+####GameSession
+Connects Game class with the rest of the data and logic that is needed to create and keep track of a specific game. Holds an instance of the Game class with the logic and the rules of the game,
+a list that is to contain the two players in the specific game. To be able to connect players to a specific game session a GameID is also needed. To handle the fact that a game needs to have 
+two players to get started, the variable "currentState" was created and instantiated to the value "waiting" which is changed to "started" as soon as a second player has joined the game. The 
+constructor for GameSession class takes a GameID as parameter, the property GameID is set to the value sent in when creating the object and within the constructor the Game object is also 
+instantiated. To handle needed interactions with a specific ongoing game we created the methods: JoinGame, StartGame and GameOver. Each of these methods checks the prerequisites for their 
+respective scenario, for example for a player to be able to join a game the game can't yet have two players and the state of the specific game needs to be "waiting". The GameOver method 
+needs to keep check of three different scenarios since a game can be over if one player leaves it, if the gameboard is full of marks but no one is the winner or if there is a winner. For a 
+game to start the property GameFull needs to have the value true and the current state of the game needs to be "waiting".
+####Player
+A class consisting of properties only, i.e. attributes that defines a unique player of a game. For example a specific player object needs to hold data on which Game the player is participating in, 
+this is accomplished through the property GameID.
 
 ### View
-För att tydliggöra att våra två Views båda är knutna till spelsessioner skapade vi en undermapp med namnet "GameSession". Vårt program har två Views: FirstPage och ShowGameBoard. 
-**FirstPage**
-Den view som renderar lobbyn för spelet, dvs. den sida där man välkommnas till spelet och kan skapa en ny spelsession eller ur en lista välja en redan skapad spelsession som man 
-vill delta i. I "FirstPage" konstruerade vi en helper-metod för att kunna rendera en lista över redan skapade spel som en andra spelare kan ansluta till. Denna helpermetod anropas 
-inuti vår responsmetod Html.BeginForm("JoinGame", "GameSession"), en lista över öppna spel kommer då att visas i en drop-down meny. I "FirstPage" definierar vi även att när 
-ActionResult-metoden "CreateGame" körs så ska värdena i dem två textfälten där man matar in nickname respektive mailadress för spelare X (spelaren som skapar spelsessionen) sparas 
-till ett spelarobjekt. Sparandet av dessa värden sker indirekt, genom interaktionen med controllern och actionresult-metoden "CreateGame".
+To clarify that our three View classes: FirstPage, ShowGameboard and GameNotFound are connected to specific games between two players i.e. gamesessions (not the
+httpsessions), we created a folder for them, called GameSession.
 
-**ShowGameBoard**
-Hanterar GUI:t och användarens interaktion med detta när en spelare väl är delaktig i en spelsession. För att en korrekt representation av spelbrädet ska visas utifrån vilka markörer 
-som för tillfället finns placerade på brädet skapades helper-metoden "showMarkAt(int x, int y)". Denna metod interagerar med modellen genom propertyn "SpecificGame" i GameSession-objektet 
-som refererar till ett specifikt "Game"-objekt, genom denna property kan vi anropa metoden "GetMarkAt" ur "Game"-klassen och beroende på vilken markör som finns på ett specifikt fält ska 
-antingen X, O eller ingenting visas. I responsmetoden "Html.BeginForm("PlaceMark","GameSession", id = Model.GameID)" anropas helper-metoden "GetMarkAt" på varje button-objekt för att korrekt 
-markör ska visas för varje knapp/fält vid varje givet tillfälle. Detta html-form interagerar med actionresult-metoden "placemark" för att korrekt markör ska visas på det fält där en spelare
-placerat ut en markör. I ShowGameBoard-view hanteras även vad som ska visas på webbsidan när någon av de två spelarna har vunnit, eller ifall 
-spelet är över och det ej finns någon vinnare, detta hanteras genom anrop till metoden "GameOver" i "GameSession"-klassen. För att indikera för en spelare att spelet ej är startat, dvs. att 
-det ännu ej finns en andra spelare ansluten anropas metoden "GameFull" i "GameSession"-klassen, om denna metod utvärderas till false ska texten "waiting for players..." visas. För att även 
-visa en korrekt representation av vems tur det är att spela kontrolleras först ifall metoden "HasWinner" utvärderas till false, i sådana fall kontrolleras det vems tur det är genom att på 
-"SpecificGame" anropa metoden "WhoIsWinner". Utifrån vilken av spelarmarkörerna det är som vunnit hämtar vi spelarens NickName ur listan "PlayersInSpecificGame" i "GameSession"-objektet. 
-		
-		
-### Controller 
-Vi valde att enbart implementera en enda controller-klass, dels för att förenkla interaktionen mellan olika actionresult-metoder som interagerar med våra två olika views: 
-FirstPage och ShowGameBoard, dels för att det var ett begränsat antal metoder som krävdes för att skapa önskade interaktionsmöjligheter med vår applikation. 
-**Actionresultmetoder i vår controller:**
 ####FirstPage
-Skapar en referens till ett Playerobjekt: "currentplayer", värdet som finns lagrat i HTTP-sessionsobjektet tilldelas till denna variabel. Metoden kontrollerar ifall värdet i "currentPlayer" 
-inte är null och om den specifika spelsessionen i så fall inte är över, ifall spelsessionen är pågående anropas metoden "RedirectToBoard" som hämtar spelarens pågående spel och omdirigerar så 
-att detta visas i webbläsaren. Om det ännu ej finns två spelare i den pågående spelsessionen läggs spelet även till i listan över öppna spel, som visas för nästa person som kommer till Firstpage.
+The view class that renders the GUI for the game lobby, i.e. the first page of the game website where players are welcomed and get the opportunity to create new games or through a list of
+open games choose a game to participate in. To give an example of how the FirstPage view is structured: it contains a helper-method that interacts with the model and controller through
+a list of ongoing GameSessions (games), the method describes that for each of the open games we should put it in a drop-down list where we show the nickname of the player who started the
+game, and in the background each post in the list also has a specific GameID connected to it. The helper method is then used within our html code where we declare: Html.BeginForm("JoinGame", 
+"GameSession"), after the declaration of the fields that are to take input of the second players name and emailadress we call the helper method to get our list of open games that the player 
+can choose to join. In the head of this html/razor block we define that we are using the actionresult method JoinGame to be able to handle the webserver request correctly. The other part of 
+this view is for defining the content to show the user when she wants to create a new game: Html.BeginForm("CreateGame", "GameSession"), here we are using the actionresult method CreateGame 
+to be able to correctly handle users' requests for creating new games.
+
+####ShowGameBoard
+Handles the GUI and response to user interaction with the website when a player is already part of a game (and has a session at the webserver). To be able to show a correct representation of
+the gameboard according to which player marks that are currently placed on it, the helper method ShowMarkAt(int x, int y) was created. This method interacts with the model through the property 
+SpecificGame within the GameSession object, through this property we can call the Game class method GetMarkAt, that returns the player mark that are to be found on a specific field of the gameboard. 
+The helper method is called for every button within our html code Html.BeginForm("PlaceMark", "GameSession", id = Model.GameID) where we also need to provide the GameId of the game the user is 
+interacting with. The rest of the ShowGameBoard view is defining what is to be shown on the website if one of the players has won, the game is over because no one has won but there are no longer 
+any empty fields on the board. Here we are interacting with the GameSession class by calling methods like GameOver in the GameSession class. To be able to correctly show on the screen which player's 
+turn it is to play we use the property PlayersInSpecificGame from the GameSession class, defining which index we want to fetch data from depending on if it's player one's or player two's turn. Also 
+to indicate for a player that their isn't yet any opponent in the game the property GameFull in the model is used, if the game hasn't yet got two players the text "Waiting for players..." is to be 
+shown to the user.
+
+####GameNotFound
+Simple view that only contains one html tag to show the message "This game doesn't exist" and a tag that creates a button that redirects the user back to the game lobby when it's clicked.
+
+### Controller 
+We chose to only have one controller class in our web application, partly because it simplifies the interaction between the different actionresult methods that are used for our three views,
+partly because the amount of methods needed to create the desired interaction possibilities for our application was limitied. 
+**Actionresult methods in the controller:**
+####FirstPage
+Here we create a reference to a Player object: currentPlayer, the value of this variable is set to the value in the HTTP-session object. This is the step where the individual player gets her session
+with the webserver. The method checks if the value in currentPlayer is not null and if the specific game associated with the player is not over, if the game is ongoing the controller method RedicretToBoard
+is called, it fetches the players ongoing session and by interacting with the view shows the ongoing game (or the game waiting for a second player) to the user. If there isn't yet two players in the game, 
+the game is added to the list of open games, which will be shown to the next user who goes to the FirstPage (game lobby). 
 
 ####CreateGame
-Hanterar requests då någon klickar på knappen "new game" på Firstpage (spelets lobby). Ett spelid skapas och tilldelas som unikt id/nyckel för den individuella spel-
-sessionen. För att vi ska kunna spara representationen av spelsessionen läggs nyckeln gameid samt värdet newGame (spelsessionsobjektet) till i dictionaryn "GameSessions". I nästa steg skapas spelarobjektet
-och därefter anropas actionresult-metoden "JoinGame" för att ansluta spelaren till spelsessionen och spelaren sparas sedan i sessionens state. 
+Defines how to handle requests when a user clicks on the button "new game" on the firstpage of the website (game lobby). A new GameSession object is created, gets a randomized GameID and is added
+to the controllers dictionary GameSessions. Also the Player object representing the first player in a game is created and the method JoinGame is called to add the player to the game. To be able to
+associate a user/player with a specific web session the player object is then assigned to the httpsession object. To show the created game to the user the method then calls the controller method 
+RedirectToBoard that show the gameboard for the specific game.
 
 ####JoinGame 
-Hanterar requests då någon vill ansluta till en spelsession. Ifall ID:et finns i listan över spelsessioner, dvs. det existerar en session så ska 
-spelsessionsinstansen som spelaren kan joina få samma id. Därefter skapas ett "Player"-objekt och dess properties tilldelas. 
-Först efter att detta genomförts ansluts den andra spelaren till spelsessionen, spelarobjektet kopplas också till sessionen och vi returnerar den spelplan som hör samman med sessionen
-genom anrop till metoden "RedirectToBoard". Om spelsessionen ej existerar sedan innan (id:et finns ej) omdirigeras man istället till spelets lobby- Firstpage (det vill säga: spelsessionen
-som man försökte ansluta till fanns ej).
+Defines how to handled requests when a user wants to join a specific game. If the whole number (id) sent into the method is not null, the GameSession object for the second player should get this
+number as it's GameID. A second player object is created and gets its properties assigned, likewise as in the CreateGame action method, the method JoinGame is called on the GameSession object to
+add the second player to the game and the game is added to the dictionary GameSessions. Then the method redirects to the view of the current game's gameboard. If the GameID didn't exist (i.e. the
+game doesn't exist, the user is instead re-directed to the lobby page (by "Redicrect("/")" which redirects to the root webpage .
 
 ####PlaceMark
-Hanterar requests till webservern rörande en av de viktigaste aspekterna i spelet: att som spelare placera ut en av sina markörer på
-spelplanen. Som argument tas ett id och en sträng av koordinater. För att veta vilken spelsession det är som en markör ska placeras ut
-i tilldelar vi GameSessionen med det id vi får in via metoden till en instans av GameSession-klassen. Ifall spelaren som
-försöker placera ut sin markör är nuvarande "currentPlayer" eller om spelet ej är fullt (det ej finns två spelare i den specifika sessionen redan)
-omdirigeras man till spelplanen så som den ser ut för tillfället. I annat fall delas strängen "coordinates" upp och metoden "PlaceMark" anropas på
-game-objektet som finns i den specifika spelsessionen för att markören ska placeras ut. När en markör har placerats ut ska ett mail skickas till 
-nästa spelare och meddela att det nu är dennas tur att spela. 
+Defines how to handle requests to the webserver considering one of the most essential parts of the game: when a player wants to place her mark on the gameboard. Parameters to the method are number (id)
+and string (coordinates). To know which game it is that the user is playing in the method references a GameSession object and uses the give id parameter to find the correct GameSession in the GameSessions
+dictionary. Then we check if the player trying to make the move in the game is in fact the currentPlayer at the moment, if so the method PlaceMark is called on the property SpecificGame of the GameSession
+object to place the mark on the field of the board that has the give X and Y coordinates, otherwise the user is redirected to the gameboard of the current game (no new mark is placed on the gameboard). 
+When a mark has been placed on the gameboard we check who the opponent player is and use the MailService class and its SendEmail method to send out an email to the next player telling her that it is her 
+turn to play. 
+
+####ShowGameBoard
+Handles all requests and the sending of responses concerning the correct representation of the gameboard at any given time during an ongoing game and httpsession. Checks if the id given when calling the method 
+is not in the GameSessions Dictionary (i.e. the game doesn't exist).If the game doesn't exist, checks if there is a player who has an ongoing httpsession with the id of the "nonexisting" or broken game and if 
+this is the case, removes the player from the httpsession and re-direct the user to the error page GameNotFound. If the id given when calling the method is in fact a key associated with an existing game in the 
+GameSession dictionary, the view ShowGameBoard is instead returned to the user through the web browser. As described above many of the other action methods are interacting with this particular action method, 
+since many of them needs to show the current updated state of the gameboard after correctly handling user input (at any given time during an ongoing game).
 
 ####RedirectToBoard
-Hjälpmetod i controllern som används för att omdirigera en request till det "game" som hör ihop med en specifik spelsession utifrån det id
-som metoden får in som argument.
+Method used to redirect request to the gameboard associated with the specific game, according to the id given when calling the method.
 
+####GameNotFound
+Simple method only used to return the likewise simple view GameNotFound. It is called within the ShowGameBoard to send the correct response to the browser when a user tries to reach a gameboard for an invalid or
+nonexisting game. 
 
 
