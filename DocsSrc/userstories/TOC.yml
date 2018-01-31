@@ -2,11 +2,19 @@
   href: createNewGame.md
 - name: Join a game
   href: joinGame.md
-- name: Someone has won the game
+- name: Winner of Game
   href: winnerOfGame.md
-- name: The gamesession is over
+- name: The game is over
   href: gamesessionOver.md
 - name: List ongoing gamesessions
   href: listOnGoingGames.md
-- name: Place mark on game board
+- name: Place mark on gameboard
   href: PlaceMark.md
+- name: Whos turn is it to play
+  href: whosTurnIsItToPlay.md
+- name: Waiting for another player
+  href: waitingForAnotherPlayer.md
+- name: Game has started
+  href: gameHasStarted.md
+- name: Game does not exist
+  href: gameDoesNotExist.md
