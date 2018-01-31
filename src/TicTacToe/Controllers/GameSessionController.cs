@@ -110,12 +110,12 @@ namespace TicTacToe.Controllers
             string[] values = coordinates.Split(',');
 
             var isOk = game.SpecificGame.PlaceMark(Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
-            var playerList = GameSessions.Select(gamesession => gamesession.Value.PlayersInSpecificGame).FirstOrDefault();
-            var opponentPlayer = playerList.Where(player => player.MarkId != ((Player)Session["player"]).MarkId);
+            var playerList = game.PlayersInSpecificGame;
+            var opponentPlayer = playerList.Where(player => player.MarkId != ((Player)Session["player"]).MarkId).FirstOrDefault();
 
-            if (opponentPlayer != null)
+            if (opponentPlayer != null && opponentPlayer.Email != "")
             {
-                mailService.SendEmail(opponentPlayer.FirstOrDefault().Email, opponentPlayer.FirstOrDefault().NickName);
+                mailService.SendEmail(opponentPlayer.Email, opponentPlayer.NickName);
             }
             return RedirectToBoard(id);
         }
